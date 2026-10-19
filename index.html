@@ -15,13 +15,18 @@
         h2 { color: #2c3e50; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
         .question-box { background: #eef2f3; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; color: #333; }
         
-        /* Adım kutuları artık standart ve şık, kırmızı vurgu yok */
         .step { background: #fff; border: 1px solid #e0e0e0; padding: 12px 15px; border-radius: 6px; margin-bottom: 10px; font-size: 0.95rem; color: #333; }
         
-        .math-field-container { margin-top: 20px; margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 0.95rem; }
+        select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; background: #fff; font-size: 1rem; }
+        
+        .math-field-container { margin-bottom: 15px; }
         math-field { width: 100%; font-size: 1.2rem; padding: 10px; border-radius: 6px; border: 1px solid #ccc; background: #fff; }
-        button { background-color: #3498db; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+        
+        button { background-color: #3498db; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; width: 100%; }
         button:hover { background-color: #2980b9; }
+        
         .result-box { margin-top: 20px; padding: 15px; border-radius: 6px; font-weight: bold; display: none; }
         .result-box.success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; display: block; }
         .result-box.error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; display: block; }
@@ -29,7 +34,7 @@
 </head>
 <body>
 
-    <!-- SOL PANEL: YZ Çözümü (Kırmızı vurgu kaldırıldı) -->
+    <!-- SOL PANEL: YZ Çözüm Analizi -->
     <div class="panel left-panel">
         <h2>🤖 YZ Çözüm Analizi (Sol Panel)</h2>
         <div class="question-box">
@@ -38,16 +43,26 @@
         <div class="step"><strong>Adım 1:</strong> Otobüs ücreti 120 TL olarak belirlenmiştir.</div>
         <div class="step"><strong>Adım 2:</strong> 4 adet müze biletinin fiyatı hesaplanır: 30 × 4 = 120 TL.</div>
         <div class="step"><strong>Adım 3:</strong> İşlemleri sırayla yapalım: Önce 120 ile 30'u toplayalım (120 + 30 = 150), ardından 4 ile çarpalım (150 × 4 = 600 TL).</div>
-        <div class="step"><strong>Sonuç:</strong> YZ'ye göre toplam maliyet 600 TL'dir. Hatayı bulup sağ panelde düzeltebilirsin!</div>
+        <div class="step"><strong>Sonuç:</strong> YZ'ye göre toplam maliyet 600 TL'dir. Hangi adımda hata yapıldığını düşünüyorsun?</div>
     </div>
 
-    <!-- SAĞ PANEL: Math Tool ve Doğrulama -->
+    <!-- SAĞ PANEL: Etkileşimli Seçim ve Doğrulama -->
     <div class="panel right-panel">
-        <h2>✏️ Matematik Aracı & Doğrulama (Sağ Panel)</h2>
-        <p style="margin-bottom: 15px; color: #666; font-size: 0.9rem;">Hatalı adımı incele, doğru matematiksel ifadeyi aşağıya yaz ve doğrula:</p>
+        <h2>✏️ Hata Tespiti & Doğrulama (Sağ Panel)</h2>
         
-        <div class="math-field-container">
-            <!-- MathLive Görsel Denklem Kutusu -->
+        <!-- Öğrencinin hatalı adımı seçtiği alan -->
+        <div class="form-group">
+            <label for="secilenAdim">Sence YZ hangi adımda hata yaptı?</label>
+            <select id="secilenAdim">
+                <option value="">-- Bir adım seçin --</option>
+                <option value="1">Adım 1</option>
+                <option value="2">Adım 2</option>
+                <option value="3">Adım 3</option>
+            </select>
+        </div>
+
+        <div class="form-group math-field-container">
+            <label for="mathInput">Doğru matematiksel ifadeyi yaz:</label>
             <math-field id="mathInput">120 + 30 * 4</math-field>
         </div>
 
@@ -58,9 +73,17 @@
 
     <script>
         async function denklemiDogrula() {
+            const secilenAdim = document.getElementById('secilenAdim').value;
             const mathField = document.getElementById('mathInput');
             const denklemMetni = mathField.value;
             const sonucKutusu = document.getElementById('sonucKutusu');
+
+            // Kontrol: Önce öğrenci adım seçmiş mi?
+            if (!secilenAdim) {
+                sonucKutusu.className = 'result-box error';
+                sonucKutusu.innerHTML = `⚠️ Lütfen önce sol panelden inceleyip YZ'nin hangi adımda hata yaptığını sağ panelden seç!`;
+                return;
+            }
 
             try {
                 const response = await fetch('/dogrula', {
@@ -72,8 +95,14 @@
                 const data = await response.json();
 
                 if (data.durum === 'basarili') {
-                    sonucKutusu.className = 'result-box success';
-                    sonucKutusu.innerHTML = `🎉 İşlem Başarılı!<br>Sonuç: ${data.sonuc}<br>${data.mesaj}`;
+                    // Bu senaryoda doğru hatalı adım "3" numaralı adımdır.
+                    if (secilenAdim === "3") {
+                        sonucKutusu.className = 'result-box success';
+                        sonucKutusu.innerHTML = `🎉 Tebrikler! Hem hatalı adımı (Adım 3) doğru tespit ettin hem de denklemi başarıyla düzelttin.<br>Doğru Sonuç: ${data.sonuc}`;
+                    } else {
+                        sonucKutusu.className = 'result-box error';
+                        sonucKutusu.innerHTML = `⚠️ Matematiksel işlemin doğru (Sonuç: ${data.sonuc}) ancak seçtiğin adım (${secilenAdim}. Adım) hatalı değil. Çözümü tekrar incele!`;
+                    }
                 } else {
                     sonucKutusu.className = 'result-box error';
                     sonucKutusu.innerHTML = `⚠️ Hata: ${data.mesaj}`;
