@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YZ Yanılgı Avcısı - 5. Sınıf Matematik</title>
-    <!-- MathLive Kütüphanesi (Görsel Denklem Düzenleyici için) -->
+    <!-- MathLive Kütüphanesi -->
     <script src="https://unpkg.com/mathlive"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -14,8 +14,10 @@
         .right-panel { background-color: #f8f9fa; }
         h2 { color: #2c3e50; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
         .question-box { background: #eef2f3; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; color: #333; }
-        .step { background: #fff; border: 1px solid #e0e0e0; padding: 12px 15px; border-radius: 6px; margin-bottom: 10px; font-size: 0.95rem; }
-        .step.error { background: #ffebee; border-color: #ef9a9a; color: #c62828; font-weight: bold; }
+        
+        /* Adım kutuları artık standart ve şık, kırmızı vurgu yok */
+        .step { background: #fff; border: 1px solid #e0e0e0; padding: 12px 15px; border-radius: 6px; margin-bottom: 10px; font-size: 0.95rem; color: #333; }
+        
         .math-field-container { margin-top: 20px; margin-bottom: 15px; }
         math-field { width: 100%; font-size: 1.2rem; padding: 10px; border-radius: 6px; border: 1px solid #ccc; background: #fff; }
         button { background-color: #3498db; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
@@ -27,7 +29,7 @@
 </head>
 <body>
 
-    <!-- SOL PANEL: YZ Çözümü ve Kasıtlı Hata -->
+    <!-- SOL PANEL: YZ Çözümü (Kırmızı vurgu kaldırıldı) -->
     <div class="panel left-panel">
         <h2>🤖 YZ Çözüm Analizi (Sol Panel)</h2>
         <div class="question-box">
@@ -35,14 +37,14 @@
         </div>
         <div class="step"><strong>Adım 1:</strong> Otobüs ücreti 120 TL olarak belirlenmiştir.</div>
         <div class="step"><strong>Adım 2:</strong> 4 adet müze biletinin fiyatı hesaplanır: 30 × 4 = 120 TL.</div>
-        <div class="step error"><strong>Adım 3 (Hatalı Adım):</strong> İşlemleri sırayla yapalım: Önce 120 ile 30'u toplayalım (120 + 30 = 150), ardından 4 ile çarpalım (150 × 4 = 600 TL).</div>
-        <div class="step"><strong>Sonuç:</strong> YZ'ye göre toplam maliyet 600 TL'dir. (Hatayı bulup sağ panelde düzeltebilirsin!)</div>
+        <div class="step"><strong>Adım 3:</strong> İşlemleri sırayla yapalım: Önce 120 ile 30'u toplayalım (120 + 30 = 150), ardından 4 ile çarpalım (150 × 4 = 600 TL).</div>
+        <div class="step"><strong>Sonuç:</strong> YZ'ye göre toplam maliyet 600 TL'dir. Hatayı bulup sağ panelde düzeltebilirsin!</div>
     </div>
 
     <!-- SAĞ PANEL: Math Tool ve Doğrulama -->
     <div class="panel right-panel">
         <h2>✏️ Matematik Aracı & Doğrulama (Sağ Panel)</h2>
-        <p style="margin-bottom: 15px; color: #666; font-size: 0.9rem;">Hatalı adımı düzelten doğru matematiksel ifadeyi aşağıya yaz ve doğrula:</p>
+        <p style="margin-bottom: 15px; color: #666; font-size: 0.9rem;">Hatalı adımı incele, doğru matematiksel ifadeyi aşağıya yaz ve doğrula:</p>
         
         <div class="math-field-container">
             <!-- MathLive Görsel Denklem Kutusu -->
@@ -57,12 +59,10 @@
     <script>
         async function denklemiDogrula() {
             const mathField = document.getElementById('mathInput');
-            // Kullanıcının yazdığı matematiksel ifadeyi alıyoruz
             const denklemMetni = mathField.value;
             const sonucKutusu = document.getElementById('sonucKutusu');
 
             try {
-                // Backend sunucumuza (/dogrula) istek atıyoruz
                 const response = await fetch('/dogrula', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
