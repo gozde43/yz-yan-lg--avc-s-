@@ -24,9 +24,12 @@
         .math-field-container { margin-bottom: 15px; }
         math-field { width: 100%; font-size: 1.2rem; padding: 10px; border-radius: 6px; border: 1px solid #ccc; background: #fff; }
         
-        button { background-color: #3498db; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; width: 100%; }
+        button { background-color: #3498db; color: white; border: none; padding: 12px 20px; font-size: 1rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 5px; }
         button:hover { background-color: #2980b9; }
         
+        .btn-success { background-color: #27ae60; display: none; }
+        .btn-success:hover { background-color: #219653; }
+
         .result-box { margin-top: 20px; padding: 15px; border-radius: 6px; font-weight: bold; display: none; }
         .result-box.success { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; display: block; }
         .result-box.error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; display: block; }
@@ -37,12 +40,14 @@
     <!-- SOL PANEL: YZ Çözüm Analizi -->
     <div class="panel left-panel">
         <h2>🤖 YZ Çözüm Analizi (Sol Panel)</h2>
-        <div class="question-box">
+        <div class="question-box" id="problemMetni">
             <strong>Problem:</strong> Bir okul gezisi için 120 TL otobüs ücreti ve her biri 30 TL olan 4 adet müze biletinin toplam maliyeti hesaplanacaktır. Toplam ücret ne kadardır?
         </div>
-        <div class="step"><strong>Adım 1:</strong> Otobüs ücreti 120 TL olarak belirlenmiştir.</div>
-        <div class="step"><strong>Adım 2:</strong> 4 adet müze biletinin fiyatı hesaplanır: 30 × 4 = 120 TL.</div>
-        <div class="step"><strong>Adım 3:</strong> İşlemleri sırayla yapalım: Önce 120 ile 30'u toplayalım (120 + 30 = 150), ardından 4 ile çarpalım (150 × 4 = 600 TL).</div>
+        <div id="adimlarListesi">
+            <div class="step"><strong>Adım 1:</strong> Otobüs ücreti 120 TL olarak belirlenmiştir.</div>
+            <div class="step"><strong>Adım 2:</strong> 4 adet müze biletinin fiyatı hesaplanır: 30 × 4 = 120 TL.</div>
+            <div class="step"><strong>Adım 3:</strong> İşlemleri sırayla yapalım: Önce 120 ile 30'u toplayalım (120 + 30 = 150), ardından 4 ile çarpalım (150 × 4 = 600 TL).</div>
+        </div>
         <div class="step"><strong>Sonuç:</strong> YZ'ye göre toplam maliyet 600 TL'dir. Hangi adımda hata yapıldığını düşünüyorsun?</div>
     </div>
 
@@ -50,7 +55,6 @@
     <div class="panel right-panel">
         <h2>✏️ Hata Tespiti & Doğrulama (Sağ Panel)</h2>
         
-        <!-- Öğrencinin hatalı adımı seçtiği alan -->
         <div class="form-group">
             <label for="secilenAdim">Sence YZ hangi adımda hata yaptı?</label>
             <select id="secilenAdim">
@@ -66,19 +70,45 @@
             <math-field id="mathInput">120 + 30 * 4</math-field>
         </div>
 
-        <button onclick="denklemiDogrula()">Doğrula</button>
+        <button id="dogrulaBtn" onclick="denklemiDogrula()">Doğrula</button>
+        <button id="yeniSoruBtn" class="btn-success" onclick="yeniSoruGetir()">🔄 Yeni Soruya Geç</button>
 
         <div id="sonucKutusu" class="result-box"></div>
     </div>
 
     <script>
+        // Örnek soru bankası (İleride YZ ile dinamikleştirilebilir)
+        const sorular = [
+            {
+                problem: "Bir okul gezisi için 120 TL otobüs ücreti ve her biri 30 TL olan 4 adet müze biletinin toplam maliyeti hesaplanacaktır. Toplam ücret ne kadardır?",
+                adimlar: [
+                    "Otobüs ücreti 120 TL olarak belirlenmiştir.",
+                    "4 adet müze biletinin fiyatı hesaplanır: 30 × 4 = 120 TL.",
+                    "İşlemleri sırayla yapalım: Önce 120 ile 30'u toplayalım (120 + 30 = 150), ardından 4 ile çarpalım (150 × 4 = 600 TL)."
+                ],
+                dogruAdim: "3",
+                varsayilanIfade: "120 + 30 * 4"
+            },
+            {
+                problem: "Ali'nin kumbarasında 50 TL vardır. Ali, haftada 4 gün boyunca her gün 10 TL harcamıştır. Ali'nin kalan parası ne kadardır?",
+                adimlar: [
+                    "Ali'nin başlangıçtaki parası 50 TL'dir.",
+                    "4 gün boyunca harcanan toplam para hesaplanır: 4 × 10 = 40 TL.",
+                    "İşlemleri sırayla yapalım: Başlangıçtaki paraya 4 ekleyelim (50 + 4 = 54), ardından 10 ile çarpalım (54 × 10 = 540 TL)."
+                ],
+                dogruAdim: "3",
+                varsayilanIfade: "50 - 4 * 10"
+            }
+        ];
+
+        let aktifSoruIndex = 0;
+
         async function denklemiDogrula() {
             const secilenAdim = document.getElementById('secilenAdim').value;
             const mathField = document.getElementById('mathInput');
             const denklemMetni = mathField.value;
             const sonucKutusu = document.getElementById('sonucKutusu');
 
-            // Kontrol: Önce öğrenci adım seçmiş mi?
             if (!secilenAdim) {
                 sonucKutusu.className = 'result-box error';
                 sonucKutusu.innerHTML = `⚠️ Lütfen önce sol panelden inceleyip YZ'nin hangi adımda hata yaptığını sağ panelden seç!`;
@@ -93,24 +123,55 @@
                 });
 
                 const data = await response.json();
+                const aktifSoru = sorular[aktifSoruIndex];
 
                 if (data.durum === 'basarili') {
-                    // Bu senaryoda doğru hatalı adım "3" numaralı adımdır.
-                    if (secilenAdim === "3") {
+                    if (secilenAdim === aktifSoru.dogruAdim) {
+                        // DOĞRU CEVAP
                         sonucKutusu.className = 'result-box success';
-                        sonucKutusu.innerHTML = `🎉 Tebrikler! Hem hatalı adımı (Adım 3) doğru tespit ettin hem de denklemi başarıyla düzelttin.<br>Doğru Sonuç: ${data.sonuc}`;
+                        sonucKutusu.innerHTML = `🎉 Tebrikler! Hem hatalı adımı doğru tespit ettin hem de denklemi başarıyla düzelttin.<br>Doğru Sonuç: ${data.sonuc}`;
+                        
+                        // Doğruysa Doğrula butonunu gizle, Yeni Soru butonunu göster
+                        document.getElementById('dogrulaBtn').style.display = 'none';
+                        document.getElementById('yeniSoruBtn').style.display = 'block';
                     } else {
+                        // YANLIŞ ADIM SEÇİMİ
                         sonucKutusu.className = 'result-box error';
-                        sonucKutusu.innerHTML = `⚠️ Matematiksel işlemin doğru (Sonuç: ${data.sonuc}) ancak seçtiğin adım (${secilenAdim}. Adım) hatalı değil. Çözümü tekrar incele!`;
+                        sonucKutusu.innerHTML = `💪 Matematiksel ifaden doğru (Sonuç: ${data.sonuc}) ancak seçtiğin adım (${secilenAdim}. Adım) hatalı değil. Çözümü dikkatlice tekrar inceleyip şansını tekrar dene!`;
                     }
                 } else {
+                    // MATEMATİKSEL HATA
                     sonucKutusu.className = 'result-box error';
-                    sonucKutusu.innerHTML = `⚠️ Hata: ${data.mesaj}`;
+                    sonucKutusu.innerHTML = `🔄 ${data.mesaj}<br>Hadi, matematiği gözden geçirip tekrar dene!`;
                 }
             } catch (error) {
                 sonucKutusu.className = 'result-box error';
                 sonucKutusu.innerHTML = `⚠️ Sunucu bağlantı hatası oluştu: ${error}`;
             }
+        }
+
+        function yeniSoruGetir() {
+            // Sonraki soruya geç (Döngüsel olarak)
+            aktifSoruIndex = (aktifSoruIndex + 1) % sorular.length;
+            const yeni = sorular[aktifSoruIndex];
+
+            // Sol paneli güncelle
+            document.getElementById('problemMetni').innerHTML = `<strong>Problem:</strong> ${yeni.problem}`;
+            
+            let adimlarHTML = '';
+            yeni.adimlar.forEach((adim, index) => {
+                adimlarHTML += `<div class="step"><strong>Adım ${index + 1}:</strong> ${adim}</div>`;
+            });
+            document.getElementById('adimlarListesi').innerHTML = adimlarHTML;
+
+            // Formu sıfırla
+            document.getElementById('secilenAdim').value = "";
+            document.getElementById('mathInput').value = yeni.varsayilanIfade;
+            document.getElementById('sonucKutusu').style.display = 'none';
+
+            // Butonları eski haline getir
+            document.getElementById('dogrulaBtn').style.display = 'block';
+            document.getElementById('yeniSoruBtn').style.display = 'none';
         }
     </script>
 </body>
