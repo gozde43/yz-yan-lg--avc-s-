@@ -34,26 +34,26 @@
 
     <div class="header">
         <h1>🎯 Hata Avcısı</h1>
-        <p>Yapay zeka çözümü doğru yaptığını düşünüyor! Hatalı adımı bul ve doğrusunu yaz.</p>
+        <p>Yapay zeka adımları çözdü ancak bir adımda hata yaptı. Hangi adımda hata var bul ve düzelt!</p>
     </div>
 
     <div class="container">
-        <!-- Sol Taraf: Soru ve Yapay Zekanın Adım Adım Çözümü -->
+        <!-- Sol Taraf: Soru ve Yapay Zekanın Hatalı Adım İçeren Çözümü -->
         <div class="card">
             <div class="problem-title" id="soruBaslik">Soru Yükleniyor...</div>
             <div class="problem-text" id="soruMetin"></div>
 
             <div class="ai-steps">
-                <h4>🤖 Yapay Zeka Öğrencinin Çözüm Adımları:</h4>
+                <h4>🤖 Yapay Zekanın Çözüm Adımları:</h4>
                 <ul id="cozumAdimlari"></ul>
             </div>
         </div>
 
         <!-- Sağ Taraf: Öğrenci Düzeltme Alanı -->
         <div class="card">
-            <h3>✍️ Hatanı Düzelt ve Doğrusunu Yaz</h3>
+            <h3>✍️ Hatalı Adımı Bul ve Düzelt</h3>
             <p style="margin-top: 10px; margin-bottom: 15px; color: #666; font-size: 14px;">
-                Sol taraftaki adımları incele. Hangi adımda hata yapıldıysa doğrusunu eşittir (<code>=</code>) kullanarak aşağıya yaz.<br>
+                Sol taraftaki adımları incele. Yapay zekanın hata yaptığı adımı tespit et ve doğrusunu eşittir (<code>=</code>) kullanarak yaz.<br>
                 <em>Örnek: <code>1053 / 9 = 117</code></em>
             </p>
 
@@ -130,7 +130,7 @@
                 if (response.ok && data.success) {
                     resultBox.className = 'success';
                     resultBox.innerHTML = '🎉 <strong>' + data.mesaj + '</strong>';
-                    btnNext.style.display = 'block'; // Doğruysa Sonraki Soru Butonu Açılır
+                    btnNext.style.display = 'block'; 
                 } else {
                     resultBox.className = 'error';
                     let html = '❌ <strong>' + (data.mesaj || data.detail) + '</strong>';
