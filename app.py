@@ -1,35 +1,15 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 from sympy import sympify
 
 app = FastAPI()
 
 
-# 1. Ana sayfa: Tarayıcıdan siteye girildiğinde görünecek arayüz
-@app.get("/", response_class=HTMLResponse)
+# 1. Ana sayfa: Doğrudan index.html dosyasını tarayıcıya yansıtır
+@app.get("/", response_class=FileResponse)
 def ana_sayfa():
-  return """
-    <!DOCTYPE html>
-    <html lang="tr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Hata Avcısı Eğitim Aracı</title>
-        <style>
-            body { font-family: Arial, sans-serif; background-color: #f4f6f9; color: #333; text-align: center; padding-top: 50px; }
-            .container { background: white; max-width: 600px; margin: 0 auto; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-            h1 { color: #007bff; }
-            p { font-size: 18px; color: #555; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Hata Avcısı Eğitim Aracı Aktif!</h1>
-            <p>Backend ve eşitlik doğrulama motoru başarıyla çalışıyor.</p>
-        </div>
-    </body>
-    </html>
-    """
+  return "index.html"
 
 
 class DogrulamaIstegi(BaseModel):
