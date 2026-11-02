@@ -25,7 +25,19 @@ def dogrula(veri: DogrulamaIstegi):
     if "=" in girdi:
       parcalar = girdi.split("=")
       if len(parcalar) == 2:
-        sol_taraf = sympify(parcalar[0].strip())
+        from fastapi.responses import HTMLResponse
+
+@app.get("/", response_class=HTMLResponse)
+def ana_sayfa():
+    return """
+    <!DOCTYPE html>
+    <html>
+    <head><title>Hata Avcısı</title></head>
+    <body>
+        <h1>Hata Avcısı Eğitim Aracı Çalışıyor!</h1>
+    </body>
+    </html>
+    """sol_taraf = sympify(parcalar[0].strip())
         sag_taraf = sympify(parcalar[1].strip())
         # Hem sol tarafın kendi içinde tutarlı olup olmadığını
         # hem de genel sonucun doğru olup olmadığını kontrol edebiliriz:
