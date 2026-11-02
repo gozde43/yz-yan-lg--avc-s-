@@ -22,17 +22,13 @@ SORULAR_VERITABANI = {
             " yerleştirilmiştir?"
         ),
         "yapay_zeka_cozumu": [
-            "1. Adım: 48 x 36 = 1728 (Toplam kitap)",
-            "2. Adım: 1728 - 675 = 1053 (Kalan kitap)",
-            (
-                "3. Adım: 1053 / 9 = 117 -> (Yapay zeka burada işlem hatası"
-                " yaptı)"
-            ),
+            "1. Adım: 48 x 36 = 1728 koli toplam kitap",
+            "2. Adım: 1728 - 675 = 1053 kitap kaldı",
+            "3. Adım: 1053 / 9 = 113 kitap düşer",
         ],
-        "hatali_adim_no": 3,
         "ipucu": (
-            "3. adımdaki bölme işleminde kalan veya basamak hesabını tekrar"
-            " kontrol etmelisin."
+            "3. adımdaki bölme işleminde 1053'ü 9'a bölerken kalanı ve basamak"
+            " hesaplamasını tekrar kontrol et."
         ),
         "dogru_ifade": "1053 / 9 = 117",
         "beklenen_sonuc": 117,
@@ -47,10 +43,11 @@ SORULAR_VERITABANI = {
         "yapay_zeka_cozumu": [
             "1. Adım: 36 x 24 = 864 kg elma",
             "2. Adım: 864 - 185 = 679 kg kalan",
-            "3. Adım: 679 / 7 = 97 -> (Yapay zeka bölme işleminde hata yaptı)",
+            "3. Adım: 679 / 7 = 93 kg düşer",
         ],
-        "hatali_adim_no": 3,
-        "ipucu": "679'u 7'ye bölerken kalansız bölme adımını dikkatlice incele.",
+        "ipucu": (
+            "679'u 7'ye bölerken bölme işlemini adım adım yeniden yapmalısın."
+        ),
         "dogru_ifade": "679 / 7 = 97",
         "beklenen_sonuc": 97,
     },
@@ -63,17 +60,13 @@ SORULAR_VERITABANI = {
             " tutarını hesaplayalım."
         ),
         "yapay_zeka_cozumu": [
-            "1. Adım: Toplam Fiyat = Hazırlık + Afiş sayısı x Birim Fiyat",
-            "2. Adım: A için = 90 + 50 x 6",
-            (
-                "3. Adım: (90 + 50) x 6 = 390 TL -> (Yapay zeka işlem önceliği"
-                " hatası yaptı)"
-            ),
+            "1. Adım: Tutar = Hazırlık Ücreti + Afiş Sayısı x Birim Fiyat",
+            "2. Adım: 90 + 50 = 140 buldum",
+            "3. Adım: 140 x 6 = 840 TL ödenir",
         ],
-        "hatali_adim_no": 3,
         "ipucu": (
-            "Çarpma işlemi toplama işleminden önce yapılır! Parantezi yanlış"
-            " yere koydu."
+            "Matematikte işlem önceliği vardır; toplama ve çarpma bir arada"
+            " olduğunda önce hangisi yapılır?"
         ),
         "dogru_ifade": "90 + 50 * 6 = 390",
         "beklenen_sonuc": 390,
@@ -91,13 +84,12 @@ SORULAR_VERITABANI = {
             "1. Adım: 2850 + 3125 = 5975 kap",
             "2. Adım: 5975 - 175 = 5800 kap",
             "3. Adım: 5800 / 25 = 232 koli",
-            (
-                "4. Adım: 232 / 16 = 14 sefer -> (Yapay zeka kalan koli için"
-                " sefer eklemeyi unuttu)"
-            ),
+            "4. Adım: 232 / 16 = 14 seferde taşınır",
         ],
-        "hatali_adim_no": 4,
-        "ipucu": "232 koliyi 16'şarlı paketlerken artan koli için bir sefer daha gerekir!",
+        "ipucu": (
+            "232 koliyi 16'lı gruplara böldüğünde arta kalan koliler için bir"
+            " sefer daha eklenmeli mi?"
+        ),
         "dogru_ifade": "232 / 16 = 15",
         "beklenen_sonuc": 15,
     },
@@ -110,15 +102,11 @@ SORULAR_VERITABANI = {
         ),
         "yapay_zeka_cozumu": [
             "1. Adım: 328 + 19 = 347 kişi",
-            (
-                "2. Adım: 347 / 18 = 19 tepsi -> (Yapay zeka kalanı ihmal"
-                " etti)"
-            ),
+            "2. Adım: 347 / 18 = 19 tepsi yeterlidir",
         ],
-        "hatali_adim_no": 2,
         "ipucu": (
-            "Artan kişiler için fazladan 1 tepsi daha eklemeyi göz ardı"
-            " etmeyelim."
+            "Bölme işleminde arta kalan kişileri açıkta bırakmamak için ne"
+            " yapmalıyız?"
         ),
         "dogru_ifade": "19 + 1 = 20",
         "beklenen_sonuc": 20,
@@ -134,14 +122,10 @@ SORULAR_VERITABANI = {
             "1. Adım: 385 x 12 = 4620 TL",
             "2. Adım: 4620 + 740 = 5360 TL",
             "3. Adım: 8000 - 5360 = 2640 TL kalan",
-            (
-                "4. Adım: 2640 / 95 = 27 kitap (75 TL artar) -> (Yapay zeka"
-                " kalanı kitap adedi sandı veya yanlış yorumladı)"
-            ),
+            "4. Adım: 2640 / 95 = 27 kitap (artanı da kitap sayısına ekledim)",
         ],
-        "hatali_adim_no": 4,
         "ipucu": (
-            "Kalan para yeni bir kitap almaya yetmiyor, kalanı doğru yorumla!"
+            "Artan paranın yeni bir kitap almaya yetip yetmediğini kontrol et."
         ),
         "dogru_ifade": "2640 / 95 = 27",
         "beklenen_sonuc": 27,
@@ -153,16 +137,10 @@ SORULAR_VERITABANI = {
             " kurtaran bir ortaokul, 1 yılda 7000 kg atık kâğıt toplarsa kaç adet"
             " yetişkin ağacı kurtarır?"
         ),
-        "yapay_zeka_cozumu": [
-            (
-                "1. Adım: 7000 x 17 = 119000 -> (Yapay zeka 1000 kg oranını"
-                " atlayıp doğrudan çarptı)"
-            )
-        ],
-        "hatali_adim_no": 1,
+        "yapay_zeka_cozumu": ["1. Adım: 7000 x 17 = 119000 ağaç kurtarılır"],
         "ipucu": (
-            "Doğrudan çarpamazsın! Önce 7000 kg'ın içinde kaç tane 1000 kg"
-            " olduğunu bulmalısın."
+            "1000 kg oranını doğrudan çarpmışsın, aradaki kat oranını bölerek"
+            " bulmalısın."
         ),
         "dogru_ifade": "7000 / 1000 * 17 = 119",
         "beklenen_sonuc": 119,
@@ -175,14 +153,10 @@ SORULAR_VERITABANI = {
             " yüksekliği en fazla kaç metre olabilir?"
         ),
         "yapay_zeka_cozumu": [
-            (
-                "1. Adım: 1411 + 2185 + 1319 + 1277 = 6192 -> (Yapay zeka"
-                " toplama işleminde hata yaptı)"
-            ),
-            "2. Adım: 7450 - 6192 = 1258",
+            "1. Adım: 1411 + 2185 + 1319 + 1277 = 6150 m",
+            "2. Adım: 7450 - 6150 = 1300 m",
         ],
-        "hatali_adim_no": 1,
-        "ipucu": "İlk adımdaki toplama işleminde elde toplamalarını kontrol et.",
+        "ipucu": "Dört dağın boyunu toplarken yapılan toplama hatasını düzelt.",
         "dogru_ifade": "7450 - 6192 = 1258",
         "beklenen_sonuc": 1258,
     },
@@ -195,15 +169,10 @@ SORULAR_VERITABANI = {
         ),
         "yapay_zeka_cozumu": [
             "1. Adım: 38800 - 23300 = 15500 TL",
-            (
-                "2. Adım: 15500 / 6 = 2583 TL -> (Yapay zeka en az 2500 TL"
-                " kuralını göz ardı etti)"
-            ),
+            "2. Adım: 15500 / 6 = 2583 TL biriktirmiştir",
         ],
-        "hatali_adim_no": 2,
         "ipucu": (
-            "Diğer ayların 'en az 2500 TL' olduğunu hesaba katıp kasım ayını"
-            " maksimum bırakmalısın."
+            "Diğer ayların en az 2500 TL olma şartını dikkate alarak hesapla."
         ),
         "dogru_ifade": "15500 - (5 * 2500) = 3000",
         "beklenen_sonuc": 3000,
