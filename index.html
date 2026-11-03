@@ -54,11 +54,11 @@
             <h3>✍️ Hatalı Adımı Bul ve Düzelt</h3>
             <p style="margin-top: 10px; margin-bottom: 15px; color: #666; font-size: 14px;">
                 Sol taraftaki adımları incele. Yapay zekanın hata yaptığı adımı tespit et ve doğrusunu eşittir (<code>=</code>) kullanarak yaz.<br>
-                <em>Örnek: <code>1053 / 9 = 117</code></em>
+                <em>Örnek: <code>7 * 17 = 119</code> veya <code>1053 / 9 = 117</code></em>
             </p>
 
             <div class="input-group">
-                <input type="text" id="userInput" placeholder="Örn: 1053 / 9 = 117">
+                <input type="text" id="userInput" placeholder="Örn: 7 * 17 = 119">
                 <button class="btn-submit" onclick="dogrula()">Doğrula ve Gönder</button>
             </div>
 
@@ -90,7 +90,7 @@
             if (!soru) return;
 
             document.getElementById('soruBaslik').innerText = soru.baslik;
-            document.getElementById('soruMetin').innerHTML = soru.metin; // Tabloların görüntülenmesi için innerHTML yapıldı
+            document.getElementById('soruMetin').innerHTML = soru.metin;
 
             const adimlarUl = document.getElementById('cozumAdimlari');
             adimlarUl.innerHTML = '';

@@ -167,11 +167,12 @@ SORULAR_VERITABANI = {
             " yetişkin ağacı kurtarır?"
         ),
         "yapay_zeka_cozumu": ["1. Adım: 7000 x 17 = 119000 ağaç kurtarılır"],
+        "hatali_adim_no": 1,
         "ipucu": (
-            "1000 kg oranını doğrudan çarpmışsın, aradaki kat oranını bölerek"
-            " bulmalısın."
+            "7000 kg içinde 7 tane 1000 kg vardır. Oranı bulduktan sonra 7 kat"
+            " sayısı ile 17'yi çarpmalısın! (Örn: 7 * 17 = 119)"
         ),
-        "dogru_ifade": "7000 / 1000 * 17 = 119",
+        "dogru_ifade": "7 * 17 = 119",
         "beklenen_sonuc": 119,
     },
     10: {
