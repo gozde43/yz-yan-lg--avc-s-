@@ -90,7 +90,7 @@
             if (!soru) return;
 
             document.getElementById('soruBaslik').innerText = soru.baslik;
-            document.getElementById('soruMetin').innerText = soru.metin;
+            document.getElementById('soruMetin').innerHTML = soru.metin; // Tabloların görüntülenmesi için innerHTML yapıldı
 
             const adimlarUl = document.getElementById('cozumAdimlari');
             adimlarUl.innerHTML = '';

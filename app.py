@@ -53,12 +53,37 @@ SORULAR_VERITABANI = {
     },
     3: {
         "baslik": "3. Soru: Afiş Fiyatları Karşılaştırma",
-        "metin": (
-            "Bir okul, şenlik afişlerini bastırmak için üç baskı merkezinden"
-            " fiyat almıştır. (A: 90 TL hazırlık, 6 TL/afiş; B: 30 TL hazırlık,"
-            " 7 TL/afiş; C: Hazırlık yok, 8 TL/afiş). 50 afiş için A firmasının"
-            " tutarını hesaplayalım."
-        ),
+        "metin": """
+        Bir okul, şenlik afişlerini bastırmak için üç baskı merkezinden fiyat almıştır:
+        <br><br>
+        <table style="width:100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 10px; background-color: white;">
+            <thead>
+                <tr style="background-color: #e8f0fe; color: #1a73e8; border-bottom: 2px solid #aecbfa;">
+                    <th style="padding: 8px; border: 1px solid #dadce0; text-align: center;">Baskı Merkezi</th>
+                    <th style="padding: 8px; border: 1px solid #dadce0; text-align: center;">Hazırlık Ücreti</th>
+                    <th style="padding: 8px; border: 1px solid #dadce0; text-align: center;">Bir Afişin Fiyatı</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center; font-weight: bold;">A</td>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center;">90 TL</td>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center;">6 TL</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center; font-weight: bold;">B</td>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center;">30 TL</td>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center;">7 TL</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center; font-weight: bold;">C</td>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center;">Yok</td>
+                    <td style="padding: 8px; border: 1px solid #dadce0; text-align: center;">8 TL</td>
+                </tr>
+            </tbody>
+        </table>
+        <b>Soru:</b> 50 afiş için A firmasının ödeyeceği tutarı hesaplayalım.
+        """,
         "yapay_zeka_cozumu": [
             "1. Adım: Tutar = Hazırlık Ücreti + Afiş Sayısı x Birim Fiyat",
             "2. Adım: 90 + 50 = 140 buldum",
@@ -97,8 +122,8 @@ SORULAR_VERITABANI = {
         "baslik": "5. Soru: Piknik Sandviç Tepsileri",
         "metin": (
             "Bir okul pikniğine 328 öğrenci ve 19 görevli katılacaktır."
-            " Sandviçler 18'li tepsiler hâlinde hazırlanmaktadır. Herkese bir"
-            " sandviç verileceğine göre en az kaç tepsi hazırlanmalıdır?"
+            " Sandviçler en fazla 18'li tepsiler hâlinde taşınmaktadır. Herkese"
+            " bir sandviç verileceğine göre en az kaç tepsi hazırlanmalıdır?"
         ),
         "yapay_zeka_cozumu": [
             "1. Adım: 328 + 19 = 347 kişi",
@@ -122,10 +147,14 @@ SORULAR_VERITABANI = {
             "1. Adım: 385 x 12 = 4620 TL",
             "2. Adım: 4620 + 740 = 5360 TL",
             "3. Adım: 8000 - 5360 = 2640 TL kalan",
-            "4. Adım: 2640 / 95 = 27 kitap (artanı da kitap sayısına ekledim)",
+            (
+                "4. Adım: 2640 / 95 = 27 (kalan 75 TL'yi de eklersek 27 + 75 = 102"
+                " kitap)"
+            ),
         ],
         "ipucu": (
-            "Artan paranın yeni bir kitap almaya yetip yetmediğini kontrol et."
+            "Bölme işleminde kalan 75 TL paradır, kitap adedi değildir! 75 TL"
+            " ile 95 TL'lik yeni bir kitap alınabilir mi?"
         ),
         "dogru_ifade": "2640 / 95 = 27",
         "beklenen_sonuc": 27,
