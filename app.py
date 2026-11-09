@@ -159,8 +159,8 @@ SORULAR_VERITABANI = {
         ],
         "hatali_adim_no": 4,
         "ipucu": (
-            "Bölme işleminde kalan 75 TL paradır, kitap adedi değildir! 75 TL"
-            " ile 95 TL'lik yeni bir kitap alınabilir mi?"
+            "Bölme işleminde kalan 75 TL paradır, kitap adedi değildir! Doğru"
+            " kitap sayısını bulmak için 2640'ı 95'e bölüp kalanı atlamalısın."
         ),
         "dogru_ifade": "2640 / 95 = 27",
         "beklenen_sonuc": 27,
