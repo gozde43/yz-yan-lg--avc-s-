@@ -250,7 +250,7 @@ def dogrula(veri: DogrulamaIstegi):
 
     girdi = veri.user_input.strip()
 
-    # 2. Kontrol: İşlem eşittir (=) içermeli ve matematiksel olarak doğru olmalı
+    # 2. Kontrol: İşlem eşittir (=) içermeli
     if "=" not in girdi:
       return {
           "success": False,
@@ -263,12 +263,16 @@ def dogrula(veri: DogrulamaIstegi):
 
     parcalar = girdi.split("=")
     if len(parcalar) == 2:
-      sol_taraf = sympify(parcalar[0].strip())
-      sag_taraf = sympify(parcalar[1].strip())
-      sol_deger = float(sol_taraf)
-      sag_deger = float(sag_taraf)
+      sol_taraf_str = parcalar[0].strip()
+      sag_taraf_str = parcalar[1].strip()
 
-      if abs(sol_deger - sag_deger) < 1e-6:
+      sol_deger = float(sympify(sol_taraf_str))
+      sag_deger = float(sympify(sag_taraf_str))
+
+      # Bölme içeren sorularda tam sayı yakınlığına ve beklenen sonuca bak
+      beklenen = soru["beklenen_sonuc"]
+
+      if abs(sol_deger - sag_deger) < 1e-6 and abs(sag_deger - beklenen) < 1e-6:
         return {
             "success": True,
             "mesaj": (
@@ -280,13 +284,13 @@ def dogrula(veri: DogrulamaIstegi):
         return {
             "success": False,
             "mesaj": (
-                "Adımı doğru seçtin fakat yazdığın eşitliğin iki tarafı"
-                " birbirine eşit değil. İşlemi kontrol et!"
+                "Yazdığın işlem doğru sonuca ulaşmıyor veya eşitliğin iki"
+                " tarafı uyuşmuyor. Kontrol et!"
             ),
             "ipucu": soru["ipucu"],
         }
-    else:
-      raise ValueError("Geçersiz eşitlik formatı.")
+      else:
+        raise ValueError("Geçersiz eşitlik formatı.")
 
   except Exception as e:
     raise HTTPException(
