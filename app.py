@@ -26,6 +26,7 @@ SORULAR_VERITABANI = {
             "2. Adım: 1728 - 675 = 1053 kitap kaldı",
             "3. Adım: 1053 / 9 = 113 kitap düşer",
         ],
+        "hatali_adim_no": 3,
         "ipucu": (
             "3. adımdaki bölme işleminde 1053'ü 9'a bölerken kalanı ve basamak"
             " hesaplamasını tekrar kontrol et."
@@ -45,6 +46,7 @@ SORULAR_VERITABANI = {
             "2. Adım: 864 - 185 = 679 kg kalan",
             "3. Adım: 679 / 7 = 93 kg düşer",
         ],
+        "hatali_adim_no": 3,
         "ipucu": (
             "679'u 7'ye bölerken bölme işlemini adım adım yeniden yapmalısın."
         ),
@@ -89,6 +91,7 @@ SORULAR_VERITABANI = {
             "2. Adım: 90 + 50 = 140 buldum",
             "3. Adım: 140 x 6 = 840 TL ödenir",
         ],
+        "hatali_adim_no": 3,
         "ipucu": (
             "Matematikte işlem önceliği vardır; toplama ve çarpma bir arada"
             " olduğunda önce hangisi yapılır?"
@@ -111,6 +114,7 @@ SORULAR_VERITABANI = {
             "3. Adım: 5800 / 25 = 232 koli",
             "4. Adım: 232 / 16 = 14 seferde taşınır",
         ],
+        "hatali_adim_no": 4,
         "ipucu": (
             "232 koliyi 16'lı gruplara böldüğünde arta kalan koliler için bir"
             " sefer daha eklenmeli mi?"
@@ -129,6 +133,7 @@ SORULAR_VERITABANI = {
             "1. Adım: 328 + 19 = 347 kişi",
             "2. Adım: 347 / 18 = 19 tepsi yeterlidir",
         ],
+        "hatali_adim_no": 2,
         "ipucu": (
             "Bölme işleminde arta kalan kişileri açıkta bırakmamak için ne"
             " yapmalıyız?"
@@ -152,6 +157,7 @@ SORULAR_VERITABANI = {
                 " kitap)"
             ),
         ],
+        "hatali_adim_no": 4,
         "ipucu": (
             "Bölme işleminde kalan 75 TL paradır, kitap adedi değildir! 75 TL"
             " ile 95 TL'lik yeni bir kitap alınabilir mi?"
@@ -186,6 +192,7 @@ SORULAR_VERITABANI = {
             "1. Adım: 1411 + 2185 + 1319 + 1277 = 6150 m",
             "2. Adım: 7450 - 6150 = 1300 m",
         ],
+        "hatali_adim_no": 1,
         "ipucu": "Dört dağın boyunu toplarken yapılan toplama hatasını düzelt.",
         "dogru_ifade": "7450 - 6192 = 1258",
         "beklenen_sonuc": 1258,
@@ -201,6 +208,7 @@ SORULAR_VERITABANI = {
             "1. Adım: 38800 - 23300 = 15500 TL",
             "2. Adım: 15500 / 6 = 2583 TL biriktirmiştir",
         ],
+        "hatali_adim_no": 2,
         "ipucu": (
             "Diğer ayların en az 2500 TL olma şartını dikkate alarak hesapla."
         ),
@@ -212,6 +220,7 @@ SORULAR_VERITABANI = {
 
 class DogrulamaIstegi(BaseModel):
   soru_id: int
+  secilen_adim: int  # Öğrencinin seçtiği hatalı adım numarası (0 = Hata Yok)
   user_input: str
 
 
@@ -227,55 +236,63 @@ def dogrula(veri: DogrulamaIstegi):
     if not soru:
       raise HTTPException(status_code=404, detail="Soru bulunamadı.")
 
+    # 1. Kontrol: Hatalı adım seçimi doğru mu?
+    dogru_adim = soru.get("hatali_adim_no")
+    if veri.secilen_adim != dogru_adim:
+      return {
+          "success": False,
+          "mesaj": (
+              "Seçtiğin hatalı adım numarası yanlış. Yapay zekanın nerede hata"
+              " yaptığını tekrar incele!"
+          ),
+          "ipucu": soru["ipucu"],
+      }
+
     girdi = veri.user_input.strip()
 
-    if "=" in girdi:
-      parcalar = girdi.split("=")
-      if len(parcalar) == 2:
-        sol_taraf = sympify(parcalar[0].strip())
-        sag_taraf = sympify(parcalar[1].strip())
-        sol_deger = float(sol_taraf)
-        sag_deger = float(sag_taraf)
+    # 2. Kontrol: İşlem eşittir (=) içermeli ve matematiksel olarak doğru olmalı
+    if "=" not in girdi:
+      return {
+          "success": False,
+          "mesaj": (
+              "Lütfen düzeltmeyi sadece sonuç olarak değil, eşittir (=)"
+              " kullanarak tam bir işlem şeklinde yaz!"
+          ),
+          "ipucu": soru["ipucu"],
+      }
 
-        if abs(sol_deger - sag_deger) < 1e-6:
-          return {
-              "success": True,
-              "islem_sonucu": sol_deger,
-              "mesaj": (
-                  "Tebrikler! Hatalı adımı buldun ve doğru eşitliği yazdın."
-              ),
-          }
-        else:
-          return {
-              "success": False,
-              "mesaj": (
-                  "Eşitliğin iki tarafı birbiriyle eşleşmiyor. Hangi adımda"
-                  " hata yapıldığını tekrar düşün!"
-              ),
-              "ipucu": soru["ipucu"],
-          }
-      else:
-        raise ValueError("Geçersiz eşitlik.")
-    else:
-      islem_sonucu = float(sympify(girdi))
-      if abs(islem_sonucu - soru["beklenen_sonuc"]) < 1e-6:
+    parcalar = girdi.split("=")
+    if len(parcalar) == 2:
+      sol_taraf = sympify(parcalar[0].strip())
+      sag_taraf = sympify(parcalar[1].strip())
+      sol_deger = float(sol_taraf)
+      sag_deger = float(sag_taraf)
+
+      if abs(sol_deger - sag_deger) < 1e-6:
         return {
             "success": True,
-            "islem_sonucu": islem_sonucu,
-            "mesaj": "Tebrikler! Doğru sonuca ulaştın.",
+            "mesaj": (
+                "Tebrikler! Hem hatalı adımı doğru seçtin hem de işlemi"
+                " mükemmel düzelttin."
+            ),
         }
       else:
         return {
             "success": False,
-            "mesaj": "Bulduğun sonuç hatalı. Tekrar dene!",
+            "mesaj": (
+                "Adımı doğru seçtin fakat yazdığın eşitliğin iki tarafı"
+                " birbirine eşit değil. İşlemi kontrol et!"
+            ),
             "ipucu": soru["ipucu"],
         }
+    else:
+      raise ValueError("Geçersiz eşitlik formatı.")
 
   except Exception as e:
     raise HTTPException(
         status_code=400,
         detail=(
-            "Matematiksel ifade okunamadı. Lütfen işlem işaretlerini kontrol"
-            " et!"
+            "Matematiksel ifade okunamadı. Lütfen `=` işaretini ve işlem"
+            " formatını kontrol et!"
         ),
     )

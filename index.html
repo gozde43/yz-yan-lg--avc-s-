@@ -18,27 +18,42 @@
         .ai-steps ul { list-style: none; }
         .ai-steps li { padding: 6px 0; border-bottom: 1px dashed #e0f2fe; color: #0369a1; font-weight: 500; }
         .ai-steps li:last-child { border-bottom: none; }
+        
+        .step-selection { margin-bottom: 20px; background: #fffbeb; border: 1px solid #fde68a; padding: 15px; border-radius: 8px; }
+        .step-selection h4 { color: #b45309; margin-bottom: 8px; font-size: 15px; }
+        .radio-group { display: flex; flex-direction: column; gap: 6px; margin-top: 5px; }
+        .radio-group label { font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+
         .input-group { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
         input[type="text"] { padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; outline: none; }
         button.btn-submit { background-color: #1a73e8; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-weight: bold; }
         button.btn-submit:hover { background-color: #1557b0; }
         button.btn-next { background-color: #2e7d32; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; display: none; }
         button.btn-next:hover { background-color: #1b5e20; }
+        
         #result-box { margin-top: 15px; padding: 15px; border-radius: 8px; display: none; line-height: 1.5; }
         .success { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
         .error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
-        .hint-box { margin-top: 10px; font-style: italic; font-size: 14px; background: rgba(255,255,255,0.6); padding: 8px; border-radius: 4px; }
+        .hint-box { margin-top: 10px; font-style: italic; font-size: 14px; background: rgba(255,255,255,0.8); padding: 8px; border-radius: 4px; }
+
+        /* Analiz Raporu Stili */
+        #analysisCard { display: none; }
+        .report-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .report-table th, .report-table td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 15px; }
+        .report-table th { background-color: #f8f9fa; color: #333; }
+        .badge-correct { color: #166534; background: #dcfce7; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .badge-wrong { color: #991b1b; background: #fee2e2; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>🎯 Hata Avcısı</h1>
-        <p>Yapay zeka adımları çözdü ancak bir adımda hata yaptı. Hangi adımda hata var bul ve düzelt!</p>
+        <p>Yapay zekanın çözümünü incele, hatalı adımı seç ve düzeltme işlemini yaz!</p>
     </div>
 
-    <div class="container">
-        <!-- Sol Taraf: Soru ve Yapay Zekanın Hatalı Adım İçeren Çözümü -->
+    <div class="container" id="quizContainer">
+        <!-- Sol Taraf: Soru ve Yapay Zekanın Çözüm Adımları -->
         <div class="card">
             <div class="problem-title" id="soruBaslik">Soru Yükleniyor...</div>
             <div class="problem-text" id="soruMetin"></div>
@@ -49,16 +64,20 @@
             </div>
         </div>
 
-        <!-- Sağ Taraf: Öğrenci Düzeltme Alanı -->
+        <!-- Sağ Taraf: Adım Seçimi ve Düzeltme Alanı -->
         <div class="card">
-            <h3>✍️ Hatalı Adımı Bul ve Düzelt</h3>
-            <p style="margin-top: 10px; margin-bottom: 15px; color: #666; font-size: 14px;">
-                Sol taraftaki adımları incele. Yapay zekanın hata yaptığı adımı tespit et ve doğrusunu eşittir (<code>=</code>) kullanarak yaz.<br>
-                <em>Örnek: <code>7 * 17 = 119</code> veya <code>1053 / 9 = 117</code></em>
-            </p>
+            <h3>✍️ Hata Tespiti ve Düzeltme</h3>
+            
+            <div class="step-selection">
+                <h4>1️⃣ Hangi adımda hata yapıldı?</h4>
+                <div class="radio-group" id="adimRadioContainer">
+                    <!-- Dinamik radyo butonları yüklenecek -->
+                </div>
+            </div>
 
             <div class="input-group">
-                <input type="text" id="userInput" placeholder="Örn: 7 * 17 = 119">
+                <label for="userInput"><strong>2️⃣ Doğru İşlemi Yaz (Eşittir `=` kullanarak):</strong></label>
+                <input type="text" id="userInput" placeholder="Örn: 1053 / 9 = 117">
                 <button class="btn-submit" onclick="dogrula()">Doğrula ve Gönder</button>
             </div>
 
@@ -67,10 +86,31 @@
         </div>
     </div>
 
+    <!-- Analiz Raporu Kartı (Başlangıçta Gizli) -->
+    <div class="container" id="analysisCard">
+        <div class="card" style="width: 100%;">
+            <h2 style="color: #1a73e8; margin-bottom: 10px;">📊 Soru Soru Performans ve Analiz Raporu</h2>
+            <p style="color: #666; margin-bottom: 20px;">Tüm soruları tamamladın! İşte detaylı hata avcılığı karnen:</p>
+            <table class="report-table" id="reportTable">
+                <thead>
+                    <tr>
+                        <th>Soru Başlığı</th>
+                        <th>Durum / Deneme Sonucu</th>
+                    </tr>
+                </thead>
+                <tbody id="reportTbody">
+                    <!-- JavaScript ile doldurulacak -->
+                </tbody>
+            </table>
+            <button class="btn-submit" style="margin-top: 25px; width: 100%;" onclick="location.reload()">Yeniden Başla 🔄</button>
+        </div>
+    </div>
+
     <script>
         let sorular = {};
         let soruKeys = [];
         let mevcutsoruIndex = 0;
+        let ogrenciSonuclari = {}; // Hangi sorunun kaç denemede yapıldığını veya doğru/yanlış olduğunu tutmak için
 
         async function sorulariGetir() {
             try {
@@ -92,13 +132,30 @@
             document.getElementById('soruBaslik').innerText = soru.baslik;
             document.getElementById('soruMetin').innerHTML = soru.metin;
 
+            // Yapay zeka adımlarını sol tarafa bas
             const adimlarUl = document.getElementById('cozumAdimlari');
             adimlarUl.innerHTML = '';
-            soru.yapay_zeka_cozumu.forEach(adim => {
+            soru.yapay_zeka_cozumu.forEach((adim, index) => {
                 const li = document.createElement('li');
                 li.innerText = adim;
                 adimlarUl.appendChild(li);
             });
+
+            // Sağ taraftaki adım seçim radyo butonlarını dinamik oluştur
+            const radioContainer = document.getElementById('adimRadioContainer');
+            radioContainer.innerHTML = '';
+            
+            soru.yapay_zeka_cozumu.forEach((_, index) => {
+                const stepNum = index + 1;
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="radio" name="secilenAdim" value="${stepNum}"> ${stepNum}. Adımda Hata Var`;
+                radioContainer.appendChild(label);
+            });
+
+            // Hata Yok seçeneği
+            const noErrorLabel = document.createElement('label');
+            noErrorLabel.innerHTML = `<input type="radio" name="secilenAdim" value="0"> Hata Yok (Tüm adımlar doğru)`;
+            radioContainer.appendChild(noErrorLabel);
 
             document.getElementById('userInput').value = '';
             document.getElementById('result-box').style.display = 'none';
@@ -111,9 +168,20 @@
             const resultBox = document.getElementById('result-box');
             const btnNext = document.getElementById('btnNext');
 
+            // Seçilen radyo butonunu bul
+            const selectedRadio = document.querySelector('input[name="secilenAdim"]:checked');
+            if (!selectedRadio) {
+                resultBox.className = 'error';
+                resultBox.innerHTML = '⚠️ Lütfen önce yapay zekanın hangi adımda hata yaptığını (veya hata olmadığını) seç!';
+                resultBox.style.display = 'block';
+                return;
+            }
+
+            const secilenAdimNo = parseInt(selectedRadio.value);
+
             if (!input.trim()) {
                 resultBox.className = 'error';
-                resultBox.innerHTML = 'Lütfen düzeltme işleminizi yazın!';
+                resultBox.innerHTML = '⚠️ Lütfen düzeltme işlemini eşittir (=) kullanarak yaz!';
                 resultBox.style.display = 'block';
                 return;
             }
@@ -122,7 +190,11 @@
                 const response = await fetch('/dogrula', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ soru_id: currentId, user_input: input })
+                    body: JSON.stringify({ 
+                        soru_id: currentId, 
+                        secilen_adim: secilenAdimNo,
+                        user_input: input 
+                    })
                 });
 
                 const data = await response.json();
@@ -130,7 +202,10 @@
                 if (response.ok && data.success) {
                     resultBox.className = 'success';
                     resultBox.innerHTML = '🎉 <strong>' + data.mesaj + '</strong>';
-                    btnNext.style.display = 'block'; 
+                    btnNext.style.display = 'block';
+
+                    // Bu soruyu başarıyla tamamlandı olarak kaydet
+                    ogrenciSonuclari[currentId] = { baslik: sorular[currentId].baslik, durum: "Doğru" };
                 } else {
                     resultBox.className = 'error';
                     let html = '❌ <strong>' + (data.mesaj || data.detail) + '</strong>';
@@ -139,6 +214,9 @@
                     }
                     resultBox.innerHTML = html;
                     btnNext.style.display = 'none';
+
+                    // Yanlış deneme kaydı
+                    ogrenciSonuclari[currentId] = { baslik: sorular[currentId].baslik, durum: "Hatalı Deneme Yapıldı" };
                 }
             } catch (err) {
                 resultBox.className = 'error';
@@ -152,8 +230,30 @@
                 mevcutsoruIndex++;
                 soruYukle();
             } else {
-                alert("Tebrikler! Tüm soruları başarıyla tamamladınız. 🎓");
+                // Tüm sorular bitti -> Analiz Raporunu Göster
+                document.getElementById('quizContainer').style.display = 'none';
+                document.getElementById('analysisCard').style.display = 'block';
+                raporuDoldur();
             }
+        }
+
+        function raporuDoldur() {
+            const tbody = document.getElementById('reportTbody');
+            tbody.innerHTML = '';
+
+            soruKeys.forEach(id => {
+                const soru = sorular[id];
+                const sonuc = ogrenciSonuclari[id] || { baslik: soru.baslik, durum: "Çözülmedi / Atlandı" };
+
+                const tr = document.createElement('tr');
+                const badgeClass = sonuc.durum === "Doğru" ? "badge-correct" : "badge-wrong";
+
+                tr.innerHTML = `
+                    <td><strong>${soru.baslik}</strong></td>
+                    <td><span class="${badgeClass}">${sonuc.durum}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
         sorulariGetir();
