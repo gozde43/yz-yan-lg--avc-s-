@@ -193,9 +193,9 @@ SORULAR_VERITABANI = {
             "2. Adım: 7450 - 6150 = 1300 m",
         ],
         "hatali_adim_no": 1,
-        "ipucu": "Dört dağın boyunu toplarken yapılan toplama hatasını düzelt.",
-        "dogru_ifade": "7450 - 6192 = 1258",
-        "beklenen_sonuc": 1258,
+        "ipucu": "1. adımda dört dağın boyunu toplarken hata yapılmış. Toplam 6150 değil, 6192 olmalıdır.",
+        "dogru_ifade": "1411 + 2185 + 1319 + 1277 = 6192",
+        "beklenen_sonuc": 6192,
     },
     11: {
         "baslik": "9. Soru: Ahmet'in Birikimi",
