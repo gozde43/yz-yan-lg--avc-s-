@@ -27,6 +27,7 @@ SORULAR_VERITABANI = {
             "3. Adım: 1053 / 9 = 113 kitap düşer",
         ],
         "hatali_adim_no": 3,
+        "kategori": "Kalanlı Bölme / Basamak",
         "ipucu": (
             "3. adımdaki bölme işleminde 1053'ü 9'a bölerken kalanı ve basamak"
             " hesaplamasını tekrar kontrol et."
@@ -47,6 +48,7 @@ SORULAR_VERITABANI = {
             "3. Adım: 679 / 7 = 93 kg düşer",
         ],
         "hatali_adim_no": 3,
+        "kategori": "Kalanlı Bölme / Basamak",
         "ipucu": (
             "679'u 7'ye bölerken bölme işlemini adım adım yeniden yapmalısın."
         ),
@@ -92,6 +94,7 @@ SORULAR_VERITABANI = {
             "3. Adım: 140 x 6 = 840 TL ödenir",
         ],
         "hatali_adim_no": 3,
+        "kategori": "İşlem Önceliği",
         "ipucu": (
             "Matematikte işlem önceliği vardır; toplama ve çarpma bir arada"
             " olduğunda önce hangisi yapılır?"
@@ -115,6 +118,7 @@ SORULAR_VERITABANI = {
             "4. Adım: 232 / 16 = 14 seferde taşınır",
         ],
         "hatali_adim_no": 4,
+        "kategori": "Kalanlı Bölme / Sefer Hesabı",
         "ipucu": (
             "232 koliyi 16'lı gruplara böldüğünde arta kalan koliler için bir"
             " sefer daha eklenmeli mi?"
@@ -134,6 +138,7 @@ SORULAR_VERITABANI = {
             "2. Adım: 347 / 18 = 19 tepsi yeterlidir",
         ],
         "hatali_adim_no": 2,
+        "kategori": "Kalanlı Bölme / Yuvarlama",
         "ipucu": (
             "Bölme işleminde arta kalan kişileri açıkta bırakmamak için ne"
             " yapmalıyız?"
@@ -158,9 +163,10 @@ SORULAR_VERITABANI = {
             ),
         ],
         "hatali_adim_no": 4,
+        "kategori": "Kalan / Para Yorumu",
         "ipucu": (
-            "Bölme işleminde kalan 75 TL paradır, kitap adedi değildir! Doğru"
-            " kitap sayısını bulmak için 2640'ı 95'e bölüp kalanı atlamalısın."
+            "Bölme işleminde kalan 75 TL paradır, kitap adedi değildir! 75 TL"
+            " ile 95 TL'lik yeni bir kitap alınabilir mi?"
         ),
         "dogru_ifade": "2640 / 95 = 27",
         "beklenen_sonuc": 27,
@@ -174,6 +180,7 @@ SORULAR_VERITABANI = {
         ),
         "yapay_zeka_cozumu": ["1. Adım: 7000 x 17 = 119000 ağaç kurtarılır"],
         "hatali_adim_no": 1,
+        "kategori": "Orantı / Kat Hesabı",
         "ipucu": (
             "7000 kg içinde 7 tane 1000 kg vardır. Oranı bulduktan sonra 7 kat"
             " sayısı ile 17'yi çarpmalısın! (Örn: 7 * 17 = 119)"
@@ -193,7 +200,11 @@ SORULAR_VERITABANI = {
             "2. Adım: 7450 - 6150 = 1300 m",
         ],
         "hatali_adim_no": 1,
-        "ipucu": "1. adımda dört dağın boyunu toplarken hata yapılmış. Toplam 6150 değil, 6192 olmalıdır.",
+        "kategori": "Temel İşlem / Toplama",
+        "ipucu": (
+            "1. adımda dört dağın boyunu toplarken hata yapılmış. Toplam 6150"
+            " değil, 6192 olmalıdır."
+        ),
         "dogru_ifade": "1411 + 2185 + 1319 + 1277 = 6192",
         "beklenen_sonuc": 6192,
     },
@@ -209,6 +220,7 @@ SORULAR_VERITABANI = {
             "2. Adım: 15500 / 6 = 2583 TL biriktirmiştir",
         ],
         "hatali_adim_no": 2,
+        "kategori": "Mantıksal Sınır / Cebirsel Yorum",
         "ipucu": (
             "Diğer ayların en az 2500 TL olma şartını dikkate alarak hesapla."
         ),
@@ -220,7 +232,7 @@ SORULAR_VERITABANI = {
 
 class DogrulamaIstegi(BaseModel):
   soru_id: int
-  secilen_adim: int  # Öğrencinin seçtiği hatalı adım numarası (0 = Hata Yok)
+  secilen_adim: int
   user_input: str
 
 
@@ -236,13 +248,15 @@ def dogrula(veri: DogrulamaIstegi):
     if not soru:
       raise HTTPException(status_code=404, detail="Soru bulunamadı.")
 
-    # 1. Kontrol: Hatalı adım seçimi doğru mu?
     dogru_adim = soru.get("hatali_adim_no")
+
+    # 1. Kontrol: Adım seçimi yanlış mı?
     if veri.secilen_adim != dogru_adim:
       return {
           "success": False,
+          "hata_turu": "Adim Secim Hatasi",
           "mesaj": (
-              "Seçtiğin hatalı adım numarası yanlış. Yapay zekanın nerede hata"
+              "Seçtiğin adım numarası yanlış. Yapay zekanın nerede hata"
               " yaptığını tekrar incele!"
           ),
           "ipucu": soru["ipucu"],
@@ -250,10 +264,10 @@ def dogrula(veri: DogrulamaIstegi):
 
     girdi = veri.user_input.strip()
 
-    # 2. Kontrol: İşlem eşittir (=) içermeli
     if "=" not in girdi:
       return {
           "success": False,
+          "hata_turu": "Format Hatasi",
           "mesaj": (
               "Lütfen düzeltmeyi sadece sonuç olarak değil, eşittir (=)"
               " kullanarak tam bir işlem şeklinde yaz!"
@@ -271,14 +285,15 @@ def dogrula(veri: DogrulamaIstegi):
 
       beklenen = soru["beklenen_sonuc"]
 
-      # Normal eşitlik VEYA kalanlı bölmelerde bölüm kontrolü (Örn: 2640/95 = 27)
       if (
           abs(sol_deger - sag_deger) < 1e-6
           and abs(sag_deger - beklenen) < 1e-6
       ) or (
           abs(sag_deger - beklenen) < 1e-6
-          and sol_deger >= sag_deger
-          and sol_deger < sag_deger + 1
+          and (
+              abs(sol_deger - sag_deger) < 1e-6
+              or (sol_deger >= sag_deger and sol_deger < sag_deger + 1)
+          )
       ):
         return {
             "success": True,
@@ -290,9 +305,10 @@ def dogrula(veri: DogrulamaIstegi):
       else:
         return {
             "success": False,
+            "hata_turu": "İşlem / Hesaplama Hatasi",
             "mesaj": (
-                "Yazdığın işlem doğru sonuca ulaşmıyor veya eşitliğin iki"
-                " tarafı uyuşmuyor. Kontrol et!"
+                "Adımı doğru seçtin fakat yazdığın eşitliğin iki tarafı"
+                " birbirine eşit değil ya da sonuç hatalı. Kontrol et!"
             ),
             "ipucu": soru["ipucu"],
         }

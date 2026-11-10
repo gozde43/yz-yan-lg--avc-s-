@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hata Avcısı - Matematik Problem Çözümü</title>
+    <title>Hata Avcısı - Gelişmiş Matematik Analizi</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f0f2f5; padding: 20px; color: #333; }
         .header { text-align: center; margin-bottom: 25px; }
         .header h1 { color: #1a73e8; margin-bottom: 8px; }
         .container { display: flex; gap: 20px; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
-        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); flex: 1; min-width: 320px; }
-        .problem-title { font-weight: bold; font-size: 20px; margin-bottom: 12px; color: #2c3e50; }
+        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); flex: 1; min-width: 320px; position: relative; }
+        .problem-title { font-weight: bold; font-size: 20px; margin-bottom: 12px; color: #2c3e50; display: flex; justify-content: space-between; align-items: center; }
+        .timer-badge { background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 600; }
         .problem-text { line-height: 1.6; background-color: #f8f9fa; padding: 15px; border-left: 4px solid #1a73e8; border-radius: 4px; margin-bottom: 20px; font-size: 16px; }
         .ai-steps { background-color: #f0f7ff; border: 1px solid #bae6fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
         .ai-steps h4 { color: #0284c7; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
@@ -38,11 +39,13 @@
 
         /* Analiz Raporu Stili */
         #analysisCard { display: none; }
+        .profile-summary { background: #f0f7ff; border: 1px solid #bae6fd; padding: 20px; border-radius: 8px; margin-bottom: 20px; line-height: 1.6; }
+        .profile-summary h3 { color: #0284c7; margin-bottom: 8px; }
         .report-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .report-table th, .report-table td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 15px; }
+        .report-table th, .report-table td { border: 1px solid #ddd; padding: 12px; text-align: left; font-size: 15px; }
         .report-table th { background-color: #f8f9fa; color: #333; }
         .badge-correct { color: #166534; background: #dcfce7; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
-        .badge-wrong { color: #991b1b; background: #fee2e2; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .badge-retry { color: #b45309; background: #fef3c7; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -55,7 +58,10 @@
     <div class="container" id="quizContainer">
         <!-- Sol Taraf: Soru ve Yapay Zekanın Çözüm Adımları -->
         <div class="card">
-            <div class="problem-title" id="soruBaslik">Soru Yükleniyor...</div>
+            <div class="problem-title">
+                <span id="soruBaslik">Soru Yükleniyor...</span>
+                <span class="timer-badge" id="timerBadge">⏱️ 0s</span>
+            </div>
             <div class="problem-text" id="soruMetin"></div>
 
             <div class="ai-steps">
@@ -70,9 +76,7 @@
             
             <div class="step-selection">
                 <h4>1️⃣ Hangi adımda hata yapıldı?</h4>
-                <div class="radio-group" id="adimRadioContainer">
-                    <!-- Dinamik radyo butonları yüklenecek -->
-                </div>
+                <div class="radio-group" id="adimRadioContainer"></div>
             </div>
 
             <div class="input-group">
@@ -86,21 +90,26 @@
         </div>
     </div>
 
-    <!-- Analiz Raporu Kartı (Başlangıçta Gizli) -->
+    <!-- Analiz Raporu Kartı -->
     <div class="container" id="analysisCard">
         <div class="card" style="width: 100%;">
-            <h2 style="color: #1a73e8; margin-bottom: 10px;">📊 Soru Soru Performans ve Analiz Raporu</h2>
-            <p style="color: #666; margin-bottom: 20px;">Tüm soruları tamamladın! İşte detaylı hata avcılığı karnen:</p>
+            <h2 style="color: #1a73e8; margin-bottom: 10px;">📊 Kapsamlı Performans ve Pedagojik Analiz Raporu</h2>
+            <p style="color: #666; margin-bottom: 15px;">Tüm soruları tamamladın! İşte sürelerin, hata türlerin ve genel karnen:</p>
+            
+            <div class="profile-summary" id="profileSummaryContent">
+                <!-- Akıllı Özet Buraya Gelecek -->
+            </div>
+
             <table class="report-table" id="reportTable">
                 <thead>
                     <tr>
                         <th>Soru Başlığı</th>
-                        <th>Durum / Deneme Sonucu</th>
+                        <th>Kategori</th>
+                        <th>Süre</th>
+                        <th>Deneme Detayı & Hata Türleri</th>
                     </tr>
                 </thead>
-                <tbody id="reportTbody">
-                    <!-- JavaScript ile doldurulacak -->
-                </tbody>
+                <tbody id="reportTbody"></tbody>
             </table>
             <button class="btn-submit" style="margin-top: 25px; width: 100%;" onclick="location.reload()">Yeniden Başla 🔄</button>
         </div>
@@ -110,7 +119,10 @@
         let sorular = {};
         let soruKeys = [];
         let mevcutsoruIndex = 0;
-        let ogrenciSonuclari = {}; // Hangi sorunun kaç denemede yapıldığını veya doğru/yanlış olduğunu tutmak için
+        let ogrenciSonuclari = {}; 
+        
+        let soruBaslangicZamani = 0;
+        let timerInterval = null;
 
         async function sorulariGetir() {
             try {
@@ -118,6 +130,15 @@
                 sorular = await response.json();
                 soruKeys = Object.keys(sorular);
                 mevcutsoruIndex = 0;
+                
+                soruKeys.forEach(id => {
+                    ogrenciSonuclari[id] = { 
+                        denemeSayisi: 0, 
+                        sureSaniye: 0, 
+                        hataTurleri: [] 
+                    };
+                });
+
                 soruYukle();
             } catch (err) {
                 console.error("Sorular yüklenemedi:", err);
@@ -132,16 +153,14 @@
             document.getElementById('soruBaslik').innerText = soru.baslik;
             document.getElementById('soruMetin').innerHTML = soru.metin;
 
-            // Yapay zeka adımlarını sol tarafa bas
             const adimlarUl = document.getElementById('cozumAdimlari');
             adimlarUl.innerHTML = '';
-            soru.yapay_zeka_cozumu.forEach((adim, index) => {
+            soru.yapay_zeka_cozumu.forEach((adim) => {
                 const li = document.createElement('li');
                 li.innerText = adim;
                 adimlarUl.appendChild(li);
             });
 
-            // Sağ taraftaki adım seçim radyo butonlarını dinamik oluştur
             const radioContainer = document.getElementById('adimRadioContainer');
             radioContainer.innerHTML = '';
             
@@ -152,7 +171,6 @@
                 radioContainer.appendChild(label);
             });
 
-            // Hata Yok seçeneği
             const noErrorLabel = document.createElement('label');
             noErrorLabel.innerHTML = `<input type="radio" name="secilenAdim" value="0"> Hata Yok (Tüm adımlar doğru)`;
             radioContainer.appendChild(noErrorLabel);
@@ -160,19 +178,30 @@
             document.getElementById('userInput').value = '';
             document.getElementById('result-box').style.display = 'none';
             document.getElementById('btnNext').style.display = 'none';
+
+            // Kronometreyi başlat
+            soruBaslangicZamani = Date.now();
+            clearInterval(timerInterval);
+            let saniyeSayac = 0;
+            timerInterval = setInterval(() => {
+                saniyeSayac++;
+                document.getElementById('timerBadge').innerText = `⏱️ ${saniyeSayac}s`;
+                ogrenciSonuclari[currentId].sureSaniye = saniyeSayac;
+            }, 1000);
         }
 
         async function dogrula() {
-            const currentId = parseInt(soruKeys[mevcutsoruIndex]);
+            const currentId = soruKeys[mevcutsoruIndex];
             const input = document.getElementById('userInput').value;
             const resultBox = document.getElementById('result-box');
             const btnNext = document.getElementById('btnNext');
 
-            // Seçilen radyo butonunu bul
+            ogrenciSonuclari[currentId].denemeSayisi++;
+
             const selectedRadio = document.querySelector('input[name="secilenAdim"]:checked');
             if (!selectedRadio) {
                 resultBox.className = 'error';
-                resultBox.innerHTML = '⚠️ Lütfen önce yapay zekanın hangi adımda hata yaptığını (veya hata olmadığını) seç!';
+                resultBox.innerHTML = '⚠️ Lütfen önce yapay zekanın hangi adımda hata yaptığını seç!';
                 resultBox.style.display = 'block';
                 return;
             }
@@ -191,7 +220,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        soru_id: currentId, 
+                        soru_id: parseInt(currentId), 
                         secilen_adim: secilenAdimNo,
                         user_input: input 
                     })
@@ -200,23 +229,21 @@
                 const data = await response.json();
 
                 if (response.ok && data.success) {
+                    clearInterval(timerInterval); // Kronometreyi durdur
                     resultBox.className = 'success';
                     resultBox.innerHTML = '🎉 <strong>' + data.mesaj + '</strong>';
-                    btnNext.style.display = 'block';
-
-                    // Bu soruyu başarıyla tamamlandı olarak kaydet
-                    ogrenciSonuclari[currentId] = { baslik: sorular[currentId].baslik, durum: "Doğru" };
+                    btnNext.style.display = 'block'; 
                 } else {
                     resultBox.className = 'error';
+                    let hataTuru = data.hata_turu || "İşlem Hatası";
+                    ogrenciSonuclari[currentId].hataTurleri.push(hataTuru);
+
                     let html = '❌ <strong>' + (data.mesaj || data.detail) + '</strong>';
                     if (data.ipucu) {
                         html += '<div class="hint-box">💡 <strong>İpucu:</strong> ' + data.ipucu + '</div>';
                     }
                     resultBox.innerHTML = html;
                     btnNext.style.display = 'none';
-
-                    // Yanlış deneme kaydı
-                    ogrenciSonuclari[currentId] = { baslik: sorular[currentId].baslik, durum: "Hatalı Deneme Yapıldı" };
                 }
             } catch (err) {
                 resultBox.className = 'error';
@@ -230,7 +257,7 @@
                 mevcutsoruIndex++;
                 soruYukle();
             } else {
-                // Tüm sorular bitti -> Analiz Raporunu Göster
+                clearInterval(timerInterval);
                 document.getElementById('quizContainer').style.display = 'none';
                 document.getElementById('analysisCard').style.display = 'block';
                 raporuDoldur();
@@ -241,19 +268,61 @@
             const tbody = document.getElementById('reportTbody');
             tbody.innerHTML = '';
 
+            let toplamSure = 0;
+            let kusursuzSayisi = 0;
+            let toplamHataTuruSayaci = {};
+
             soruKeys.forEach(id => {
                 const soru = sorular[id];
-                const sonuc = ogrenciSonuclari[id] || { baslik: soru.baslik, durum: "Çözülmedi / Atlandı" };
+                const sonuc = ogrenciSonuclari[id];
+                toplamSure += sonuc.sureSaniye;
+
+                if (sonuc.denemeSayisi === 1) {
+                    kusursuzSayisi++;
+                }
+
+                sonuc.hataTurleri.forEach(hata => {
+                    toplamHataTuruSayaci[hata] = (toplamHataTuruSayaci[hata] || 0) + 1;
+                });
+
+                let durumMetni = "";
+                let badgeClass = "";
+
+                if (sonuc.denemeSayisi === 1) {
+                    durumMetni = "✨ 1. Denemede Kusursuz Çözüm";
+                    badgeClass = "badge-correct";
+                } else {
+                    let yanlislarStr = sonuc.hataTurleri.join(", ");
+                    durumMetni = `💡 ${sonuc.denemeSayisi}. Denemede Başarılı (${sonuc.denemeSayisi - 1} hata: ${yanlislarStr})`;
+                    badgeClass = "badge-retry";
+                }
 
                 const tr = document.createElement('tr');
-                const badgeClass = sonuc.durum === "Doğru" ? "badge-correct" : "badge-wrong";
-
                 tr.innerHTML = `
                     <td><strong>${soru.baslik}</strong></td>
-                    <td><span class="${badgeClass}">${sonuc.durum}</span></td>
+                    <td><span style="color: #555; font-size: 14px;">${soru.kategori || 'Genel'}</span></td>
+                    <td>⏱️ ${sonuc.sureSaniye} sn</td>
+                    <td><span class="${badgeClass}">${durumMetni}</span></td>
                 `;
                 tbody.appendChild(tr);
             });
+
+            // Akıllı Özet / Profil Özeti Oluşturma
+            const summaryDiv = document.getElementById('profileSummaryContent');
+            let profilYorumu = `<h3>🎯 Genel Performans Özetin</h3>`;
+            profilYorumu += `<p>Toplam <strong>${soruKeys.length}</strong> soruyu toplam <strong>${toplamSure} saniyede</strong> tamamladın. Soruların <strong>${kusursuzSayisi}</strong> tanesini hiç hata yapmadan ilk denemede çözmeyi başardın!</p>`;
+            
+            if (Object.keys(toplamHataTuruSayaci).length > 0) {
+                profilYorumu += `<p style="margin-top: 8px;">🔍 Yapılan hata dağılımı incelendiğinde en sık karşılaşılan alanlar: <em>`;
+                for (let [hata, adet] of Object.entries(toplamHataTuruSayaci)) {
+                    profilYorumu += `<strong>${hata}</strong> (${adet} kez), `;
+                }
+                profilYorumu = profilYorumu.slice(0, -2) + `</em>. Bu konuları tekrar etmek problem çözme hızını daha da artıracaktır.</p>`;
+            } else {
+                profilYorumu += `<p style="margin-top: 8px; color: #166534;">🏆 Harika! Hiç hata yapmadan tüm testi kusursuz tamamladın. Matematiksel muhakeme becerin çok güçlü!</p>`;
+            }
+
+            summaryDiv.innerHTML = profilYorumu;
         }
 
         sorulariGetir();
