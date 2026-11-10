@@ -269,10 +269,17 @@ def dogrula(veri: DogrulamaIstegi):
       sol_deger = float(sympify(sol_taraf_str))
       sag_deger = float(sympify(sag_taraf_str))
 
-      # Bölme içeren sorularda tam sayı yakınlığına ve beklenen sonuca bak
       beklenen = soru["beklenen_sonuc"]
 
-      if abs(sol_deger - sag_deger) < 1e-6 and abs(sag_deger - beklenen) < 1e-6:
+      # Normal eşitlik VEYA kalanlı bölmelerde bölüm kontrolü (Örn: 2640/95 = 27)
+      if (
+          abs(sol_deger - sag_deger) < 1e-6
+          and abs(sag_deger - beklenen) < 1e-6
+      ) or (
+          abs(sag_deger - beklenen) < 1e-6
+          and sol_deger >= sag_deger
+          and sol_deger < sag_deger + 1
+      ):
         return {
             "success": True,
             "mesaj": (
@@ -289,8 +296,8 @@ def dogrula(veri: DogrulamaIstegi):
             ),
             "ipucu": soru["ipucu"],
         }
-      else:
-        raise ValueError("Geçersiz eşitlik formatı.")
+    else:
+      raise ValueError("Geçersiz eşitlik formatı.")
 
   except Exception as e:
     raise HTTPException(
