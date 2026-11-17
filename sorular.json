@@ -1,7 +1,7 @@
 {
     "1": {
         "baslik": "1. Soru: Kırtasiye Alışverişi",
-        "metin": "Kerem, tanesi 45 TL olan defterlerden 12 tane ve tanesi 15 TL olan kalemlerden 20 tane almıştır. Kırtasiyeciye 1000 TL veren Kerem, kasiyerin kendisine 320 TL para üstü verdiğini görmüştür. Kasiyer para üstünü hesaplarken hangi adreste hata yapmıştır?",
+        "metin": "Kerem, tanesi 45 TL olan defterlerden 12 tane ve tanesi 15 TL olan kalemlerden 20 tane almıştır. Kırtasiyeciye 1000 TL veren Kerem'in alacağı para üstü kaç TL'dir?",
         "yapay_zeka_cozumu": [
             "1. Adım: 45 x 12 = 540 TL defterlere ödenmiştir.",
             "2. Adım: 15 x 20 = 300 TL kalemlere ödenmiştir.",
@@ -9,63 +9,63 @@
             "4. Adım: 1000 - 840 = 260 TL para üstü kalmalıdır."
         ],
         "hatali_adim_no": 4,
-        "kategori": "Doğal Sayılarla Dört İşlem / Para Üstü",
-        "ipucu": "Toplam alışveriş tutarı ile verilen para arasındaki çıkarma işlemini tekrar kontrol etmelisin. 1000'den 840 çıkarsa kaç kalır?",
+        "kategori": "İşlem Hatası (Çıkarma)",
+        "ipucu": "Toplam alışveriş tutarı ile verilen para arasındaki çıkarma işleminde onluk bozmayı tekrar kontrol et. 1000'den 840 çıkarsa kaç kalır?",
         "beklenen_islem": "1000 - 840",
         "beklenen_sonuc": 160
     },
     "2": {
-        "baslik": "2. Soru: Sinema Salonu Oturma Düzeni",
-        "metin": "Bir sinema salonunda her birinde 24 koltuk bulunan 18 sıra vardır. Gösterime gelen 410 kişiden 350'si yerlerine oturmuştur. Ayakta kalan izleyiciler her birine 12 kişi alacak kalan boş localara eşit şekilde yerleştirilecektir. Kaç loca gerekir?",
+        "baslik": "2. Soru: Sinema Salonu Bilet Satışı",
+        "metin": "Bir sinema salonunda her birinde 24 koltuk bulunan 18 sıra vardır. Akşam seansı için 350 bilet satıldığına göre, salonda kaç koltuk boş kalmıştır?",
         "yapay_zeka_cozumu": [
-            "1. Adım: 410 - 350 = 60 kişi ayakta kalmıştır.",
-            "2. Adım: 60 / 12 = 4 loca gereklidir."
+            "1. Adım: Salondaki toplam koltuk sayısını bulmak için 24 x 18 = 412 koltuk hesaplanır.",
+            "2. Adım: Boş koltuk sayısını bulmak için toplam koltuktan satılan bilet çıkarılır: 412 - 350 = 62 koltuk boş kalır."
         ],
-        "hatali_adim_no": 2,
-        "kategori": "Kalanlı Bölme / Problem Yorumu",
-        "ipucu": "2. adımdaki bölme işleminde 60 sayısının içinde kaç tane 12 olduğunu dikkatlice hesapla.",
-        "beklenen_islem": "60 / 12",
-        "beklenen_sonuc": 5
+        "hatali_adim_no": 1,
+        "kategori": "İşlem Hatası (Çarpma)",
+        "ipucu": "1. adımdaki 24 ile 18'in çarpımını basamak değerlerine dikkat ederek yeniden hesapla.",
+        "beklenen_islem": "24 * 18",
+        "beklenen_sonuc": 432
     },
     "3": {
         "baslik": "3. Soru: Okul Gezisi Otobüs Planı",
-        "metin": "Bir okul gezisine 5. sınıflardan 142 öğrenci ve 8 öğretmen katlacaktır. Yolculuk için her biri en fazla 30 yolcu alabilen otobüsler kiralanmıştır. Herkesin oturacağı bir yer olması için en az kaç otobüs gereklidir?",
+        "metin": "Bir okul gezisine 5. sınıflardan 142 öğrenci ve 14 öğretmen katılacaktır. Yolculuk için her biri en fazla 30 yolcu alabilen otobüsler kiralanmıştır. Herkesin oturacağı bir yer olması için en az kaç otobüs gereklidir?",
         "yapay_zeka_cozumu": [
-            "1. Adım: 142 + 8 = 150 kişi geziye katlacaktır.",
-            "2. Adım: 150 / 30 = 4 otobüs yeterlidir."
+            "1. Adım: Geziye katılacak toplam kişi sayısı 142 + 14 = 156 kişidir.",
+            "2. Adım: 156 / 30 = 5 otobüs (kalan 6 kişi olduğu için tam 5 otobüs yeterlidir).",
+            "3. Adım: Kiralama ücreti 5 otobüs üzerinden hesaplanır."
         ],
         "hatali_adim_no": 2,
-        "kategori": "Bölme ve Kalan Yorumu",
-        "ipucu": "Toplam kişi sayısını otobüs kapasitesine böldüğünde işlem tam bölünüyorsa sonuç doğrudur ama burada kalan veya tam sınır durumu kontrol et.",
-        "beklenen_islem": "150 / 30",
-        "beklenen_sonuc": 5
+        "kategori": "Mantık Hatası (Kalan Yorumu)",
+        "ipucu": "Bölme işleminde arta kalan 6 kişiyi okulda bırakmamak için otobüs sayısına ne yapmalıyız?",
+        "beklenen_islem": "5 + 1",
+        "beklenen_sonuc": 6
     },
     "4": {
         "baslik": "4. Soru: Çiftlikte Yumurta Toplama",
-        "metin": "Bir çiftlikte pazartesi günü 1450, salı günü ise pazartesinden 320 fazla yumurta toplanmıştır. Toplanan yumurtaların 500 tanesi kırıldığı için ayrılmıştır. Sağlam kalan yumurtalar onar yumurtalık kolilere konulursa toplam kaç koli dolur?",
+        "metin": "Bir çiftlikte pazartesi günü 1450, salı günü ise pazartesinden 320 fazla yumurta toplanmıştır. Toplanan yumurtaların 500 tanesi kırıldığı için ayrılmıştır. Sağlam kalan yumurtalar onar yumurtalık kolilere konulursa toplam kaç koli oluşur?",
         "yapay_zeka_cozumu": [
-            "1. Adım: 1450 + 320 = 1770 salı günü toplanmıştır.",
-            "2. Adım: 1450 + 1770 = 3220 toplam yumurta",
-            "3. Adım: 3220 - 500 = 2720 sağlam yumurta",
-            "4. Adım: 2720 / 10 = 262 koli oluşur."
+            "1. Adım: Salı günü toplanan yumurta sayısı 1450 + 320 = 1770 tanedir.",
+            "2. Adım: İki günde toplam 1770 - 500 = 1270 sağlam yumurta vardır.",
+            "3. Adım: 1270 / 10 = 127 koli oluşur."
         ],
-        "hatali_adim_no": 4,
-        "kategori": "Doğal Sayılarla Bölme / Basamak",
-        "ipucu": "2720 sayısını 10'a bölerken sıfır silme kuralını veya bölme basamaklarını tekrar incele.",
-        "beklenen_islem": "2720 / 10",
-        "beklenen_sonuc": 272
+        "hatali_adim_no": 2,
+        "kategori": "Bilgi Hatası (Eksik Veri Kullanımı)",
+        "ipucu": "2. adımda sadece salı gününün yumurtalarından kırılanlar çıkarılmış. Pazartesi toplanan 1450 yumurta toplama dahil edilmemiş!",
+        "beklenen_islem": "1450 + 1770",
+        "beklenen_sonuc": 3220
     },
     "5": {
         "baslik": "5. Soru: Parkur Koşusu",
-        "metin": "Zeynep, okulun bahçesindeki 400 metrelik koşu parkurunda her gün eşit sayıda tur atmaktadır. Pazartesi ve salı günleri toplam 3200 metre koşan Zeynep, çarşamba günü bu mesafenin iki katı kadar koşmuştur. Zeynep çarşamba günü kaç tur atmıştır?",
+        "metin": "Zeynep, okulun bahçesindeki 400 metrelik koşu parkurunda pazartesi ve salı günleri toplam 3200 metre koşmuştur. Çarşamba günü ise bu mesafenin iki katı kadar koşan Zeynep, çarşamba günü kaç tur atmıştır?",
         "yapay_zeka_cozumu": [
-            "1. Adım: Pazartesi ve salı toplam 3200 metre koşulmuştur.",
-            "2. Adım: Çarşamba günü bunun iki katı yani 3200 x 2 = 6400 metre koşulmuştur.",
-            "3. Adım: 6400 / 400 = 14 tur atılmıştır."
+            "1. Adım: Çarşamba günü koşulan mesafe 3200 x 2 = 6400 metredir.",
+            "2. Adım: Tur sayısını bulmak için koşulan mesafe ile parkur uzunluğu çarpılır: 6400 x 400 = 2560000 tur atılmıştır.",
+            "3. Adım: Sonuç olarak Zeynep parkuru tamamlamıştır."
         ],
-        "hatali_adim_no": 3,
-        "kategori": "Çarpma ve Bölme İlişkisi",
-        "ipucu": "6400 metreyi 400 metreye bölerken sondaki sıfırları sadeleştirerek işlemi tekrar yap.",
+        "hatali_adim_no": 2,
+        "kategori": "Mantık Hatası (Yanlış İşlem Seçimi)",
+        "ipucu": "6400 metrelik mesafenin içinde kaç tane 400 metrelik tur olduğunu bulmak için çarpma mı yapmalıyız yoksa bölme mi?",
         "beklenen_islem": "6400 / 400",
         "beklenen_sonuc": 16
     },
@@ -73,16 +73,15 @@
         "baslik": "6. Soru: Kitap Okuma Kampanyası",
         "metin": "Bir kitap okuma kampanyasında Elif ilk hafta 35 sayfa, sonraki her hafta bir önceki haftadan 15 sayfa daha fazla kitap okumuştur. Elif 4 haftanın sonunda toplam kaç sayfa kitap okumuştur?",
         "yapay_zeka_cozumu": [
-            "1. Hafta: 35 sayfa",
-            "2. Hafta: 35 + 15 = 50 sayfa",
-            "3. Hafta: 50 + 15 = 65 sayfa",
-            "4. Hafta: 65 + 15 = 80 sayfa",
-            "Toplam: 35 + 50 + 65 + 80 = 220 sayfa"
+            "1. Adım: 1. hafta 35 sayfa, 2. hafta 35 + 15 = 50 sayfa okumuştur.",
+            "2. Adım: 3. hafta bir önceki haftadan 15 fazla yani 35 + 15 = 50 sayfa okumuştur.",
+            "3. Adım: 4. hafta 50 + 15 = 65 sayfa okumuştur.",
+            "4. Adım: Toplam 35 + 50 + 50 + 65 = 200 sayfa okumuştur."
         ],
-        "hatali_adim_no": 5,
-        "kategori": "Kademeli Toplama / Örüntü",
-        "ipucu": "Tüm haftaların toplamını bulurken toplama işlemindeki basamakları ve elde sayılarını yeniden kontrol et.",
-        "beklenen_islem": "35 + 50 + 65 + 80",
-        "beklenen_sonuc": 230
+        "hatali_adim_no": 2,
+        "kategori": "Bilgi Hatası (Kuralı Yanlış Uygulama)",
+        "ipucu": "Soruda 'her hafta bir önceki haftadan 15 sayfa fazla' diyor. 3. haftada 1. haftanın üzerine değil, 2. haftanın (50) üzerine ekleme yapılmalı.",
+        "beklenen_islem": "50 + 15",
+        "beklenen_sonuc": 65
     }
 }
