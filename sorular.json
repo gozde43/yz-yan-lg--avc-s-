@@ -1,125 +1,88 @@
 {
     "1": {
-        "baslik": "1. Soru: Kütüphane Kitap Dağıtımı",
-        "metin": "Bir okul kütüphanesine 48 koli kitap gelmiştir. Her kolide 36 kitap vardır. Kitapların 675 tanesi yakın çevredeki bir köy okuluna gönderilmiştir. Kalan kitaplar 9 sınıf kitaplığına eşit sayıda yerleştirilmiştir. Her sınıf kitaplığına kaç kitap yerleştirilmiştir?",
+        "baslik": "1. Soru: Kırtasiye Alışverişi",
+        "metin": "Kerem, tanesi 45 TL olan defterlerden 12 tane ve tanesi 15 TL olan kalemlerden 20 tane almıştır. Kırtasiyeciye 1000 TL veren Kerem, kasiyerin kendisine 320 TL para üstü verdiğini görmüştür. Kasiyer para üstünü hesaplarken hangi adreste hata yapmıştır?",
         "yapay_zeka_cozumu": [
-            "1. Adım: 48 x 36 = 1728 koli toplam kitap",
-            "2. Adım: 1728 - 675 = 1053 kitap kaldı",
-            "3. Adım: 1053 / 9 = 113 kitap düşer"
+            "1. Adım: 45 x 12 = 540 TL defterlere ödenmiştir.",
+            "2. Adım: 15 x 20 = 300 TL kalemlere ödenmiştir.",
+            "3. Adım: 540 + 300 = 840 TL toplam tutardır.",
+            "4. Adım: 1000 - 840 = 260 TL para üstü kalmalıdır."
         ],
-        "hatali_adim_no": 3,
-        "kategori": "Kalanlı Bölme / Basamak",
-        "ipucu": "3. adımdaki bölme işleminde 1053'ü 9'a bölerken kalanı ve basamak hesaplamasını tekrar kontrol et.",
-        "beklenen_islem": "1053 / 9",
-        "beklenen_sonuc": 117
+        "hatali_adim_no": 4,
+        "kategori": "Doğal Sayılarla Dört İşlem / Para Üstü",
+        "ipucu": "Toplam alışveriş tutarı ile verilen para arasındaki çıkarma işlemini tekrar kontrol etmelisin. 1000'den 840 çıkarsa kaç kalır?",
+        "beklenen_islem": "1000 - 840",
+        "beklenen_sonuc": 160
     },
     "2": {
-        "baslik": "2. Soru: Elma Dağıtımı",
-        "metin": "Bir üretici, 36 kasanın her birine 24 kg elma yerleştirmiştir. Günün ilk bölümünde 185 kg elma satılmıştır. Kalan elmalar 7 markete eşit miktarda gönderilecektir. Her markete kaç kilogram elma gönderilir?",
+        "baslik": "2. Soru: Sinema Salonu Oturma Düzeni",
+        "metin": "Bir sinema salonunda her birinde 24 koltuk bulunan 18 sıra vardır. Gösterime gelen 410 kişiden 350'si yerlerine oturmuştur. Ayakta kalan izleyiciler her birine 12 kişi alacak kalan boş localara eşit şekilde yerleştirilecektir. Kaç loca gerekir?",
         "yapay_zeka_cozumu": [
-            "1. Adım: 36 x 24 = 864 kg elma",
-            "2. Adım: 864 - 185 = 679 kg kalan",
-            "3. Adım: 679 / 7 = 93 kg düşer"
+            "1. Adım: 410 - 350 = 60 kişi ayakta kalmıştır.",
+            "2. Adım: 60 / 12 = 4 loca gereklidir."
         ],
-        "hatali_adim_no": 3,
-        "kategori": "Kalanlı Bölme / Basamak",
-        "ipucu": "679'u 7'ye bölerken bölme işlemini adım adım yeniden yapmalısın.",
-        "beklenen_islem": "679 / 7",
-        "beklenen_sonuc": 97
+        "hatali_adim_no": 2,
+        "kategori": "Kalanlı Bölme / Problem Yorumu",
+        "ipucu": "2. adımdaki bölme işleminde 60 sayısının içinde kaç tane 12 olduğunu dikkatlice hesapla.",
+        "beklenen_islem": "60 / 12",
+        "beklenen_sonuc": 5
     },
     "3": {
-        "baslik": "3. Soru: Afiş Fiyatları Karşılaştırma",
-        "metin": "Bir okul, şenlik afişlerini bastırmak için üç baskı merkezinden fiyat almıştır: <br><br><b>A Merkezi:</b> 90 TL hazırlık, 6 TL/afiş<br><b>B Merkezi:</b> 30 TL hazırlık, 7 TL/afiş<br><b>C Merkezi:</b> Hazırlık yok, 8 TL/afiş<br><br><b>Soru:</b> 50 afiş için A firmasının ödeyeceği tutarı hesaplayalım.",
+        "baslik": "3. Soru: Okul Gezisi Otobüs Planı",
+        "metin": "Bir okul gezisine 5. sınıflardan 142 öğrenci ve 8 öğretmen katlacaktır. Yolculuk için her biri en fazla 30 yolcu alabilen otobüsler kiralanmıştır. Herkesin oturacağı bir yer olması için en az kaç otobüs gereklidir?",
         "yapay_zeka_cozumu": [
-            "1. Adım: Tutar = Hazırlık Ücreti + Afiş Sayısı x Birim Fiyat",
-            "2. Adım: 90 + 50 = 140 buldum",
-            "3. Adım: 140 x 6 = 840 TL ödenir"
+            "1. Adım: 142 + 8 = 150 kişi geziye katlacaktır.",
+            "2. Adım: 150 / 30 = 4 otobüs yeterlidir."
+        ],
+        "hatali_adim_no": 2,
+        "kategori": "Bölme ve Kalan Yorumu",
+        "ipucu": "Toplam kişi sayısını otobüs kapasitesine böldüğünde işlem tam bölünüyorsa sonuç doğrudur ama burada kalan veya tam sınır durumu kontrol et.",
+        "beklenen_islem": "150 / 30",
+        "beklenen_sonuc": 5
+    },
+    "4": {
+        "baslik": "4. Soru: Çiftlikte Yumurta Toplama",
+        "metin": "Bir çiftlikte pazartesi günü 1450, salı günü ise pazartesinden 320 fazla yumurta toplanmıştır. Toplanan yumurtaların 500 tanesi kırıldığı için ayrılmıştır. Sağlam kalan yumurtalar onar yumurtalık kolilere konulursa toplam kaç koli dolur?",
+        "yapay_zeka_cozumu": [
+            "1. Adım: 1450 + 320 = 1770 salı günü toplanmıştır.",
+            "2. Adım: 1450 + 1770 = 3220 toplam yumurta",
+            "3. Adım: 3220 - 500 = 2720 sağlam yumurta",
+            "4. Adım: 2720 / 10 = 262 koli oluşur."
+        ],
+        "hatali_adim_no": 4,
+        "kategori": "Doğal Sayılarla Bölme / Basamak",
+        "ipucu": "2720 sayısını 10'a bölerken sıfır silme kuralını veya bölme basamaklarını tekrar incele.",
+        "beklenen_islem": "2720 / 10",
+        "beklenen_sonuc": 272
+    },
+    "5": {
+        "baslik": "5. Soru: Parkur Koşusu",
+        "metin": "Zeynep, okulun bahçesindeki 400 metrelik koşu parkurunda her gün eşit sayıda tur atmaktadır. Pazartesi ve salı günleri toplam 3200 metre koşan Zeynep, çarşamba günü bu mesafenin iki katı kadar koşmuştur. Zeynep çarşamba günü kaç tur atmıştır?",
+        "yapay_zeka_cozumu": [
+            "1. Adım: Pazartesi ve salı toplam 3200 metre koşulmuştur.",
+            "2. Adım: Çarşamba günü bunun iki katı yani 3200 x 2 = 6400 metre koşulmuştur.",
+            "3. Adım: 6400 / 400 = 14 tur atılmıştır."
         ],
         "hatali_adim_no": 3,
-        "kategori": "İşlem Önceliği",
-        "ipucu": "Matematikte işlem önceliği vardır; toplama ve çarpma bir arada olduğunda önce hangisi yapılır?",
-        "beklenen_islem": "90 + 50 * 6",
-        "beklenen_sonuc": 390
+        "kategori": "Çarpma ve Bölme İlişkisi",
+        "ipucu": "6400 metreyi 400 metreye bölerken sondaki sıfırları sadeleştirerek işlemi tekrar yap.",
+        "beklenen_islem": "6400 / 400",
+        "beklenen_sonuc": 16
     },
     "6": {
-        "baslik": "4. Soru: Yoğurt Kabı Taşıma",
-        "metin": "Bir süt işletmesi pazartesi 2850, salı 3125 yoğurt kabı üretmiştir. Kalite kontrolünde 175 kap ayrılmıştır. Kalan kaplar 25'erli kolilere yerleştirilecektir. Dağıtım aracı her seferinde en fazla 16 koli taşıyabilmektedir. Bütün kolileri taşımak için en az kaç sefer gerekir?",
+        "baslik": "6. Soru: Kitap Okuma Kampanyası",
+        "metin": "Bir kitap okuma kampanyasında Elif ilk hafta 35 sayfa, sonraki her hafta bir önceki haftadan 15 sayfa daha fazla kitap okumuştur. Elif 4 haftanın sonunda toplam kaç sayfa kitap okumuştur?",
         "yapay_zeka_cozumu": [
-            "1. Adım: 2850 + 3125 = 5975 kap",
-            "2. Adım: 5975 - 175 = 5800 kap",
-            "3. Adım: 5800 / 25 = 232 koli",
-            "4. Adım: 232 / 16 = 14 seferde taşınır"
+            "1. Hafta: 35 sayfa",
+            "2. Hafta: 35 + 15 = 50 sayfa",
+            "3. Hafta: 50 + 15 = 65 sayfa",
+            "4. Hafta: 65 + 15 = 80 sayfa",
+            "Toplam: 35 + 50 + 65 + 80 = 220 sayfa"
         ],
-        "hatali_adim_no": 4,
-        "kategori": "Kalanlı Bölme / Sefer Hesabı",
-        "ipucu": "232 koliyi 16'lı gruplara böldüğünde arta kalan koliler için bir sefer daha eklenmeli mi?",
-        "beklenen_islem": "232 / 16",
-        "beklenen_sonuc": 15
-    },
-    "7": {
-        "baslik": "5. Soru: Piknik Sandviç Tepsileri",
-        "metin": "Bir okul pikniğine 328 öğrenci ve 19 görevli katılacaktır. Sandviçler en fazla 18'li tepsiler hâlinde taşınmaktadır. Herkese bir sandviç verileceğine göre en az kaç tepsi hazırlanmalıdır?",
-        "yapay_zeka_cozumu": [
-            "1. Adım: 328 + 19 = 347 kişi",
-            "2. Adım: 347 / 18 = 19 tepsi yeterlidir"
-        ],
-        "hatali_adim_no": 2,
-        "kategori": "Kalanlı Bölme / Yuvarlama",
-        "ipucu": "Bölme işleminde arta kalan kişileri açıkta bırakmamak için ne yapmalıyız?",
-        "beklenen_islem": "19 + 1",
-        "beklenen_sonuc": 20
-    },
-    "8": {
-        "baslik": "6. Soru: Bilim Kulübü Kitap Alımı",
-        "metin": "Bir bilim kulübünün 8000 TL bütçesi vardır. Tanesi 385 TL olan 12 deney seti ve 740 TL tutarında malzeme alınmıştır. Kalan para ile tanesi 95 TL olan kitaplardan en fazla kaç tane alınabilir?",
-        "yapay_zeka_cozumu": [
-            "1. Adım: 385 x 12 = 4620 TL",
-            "2. Adım: 4620 + 740 = 5360 TL",
-            "3. Adım: 8000 - 5360 = 2640 TL kalan",
-            "4. Adım: 2640 / 95 = 27 (kalan 75 TL'yi de eklersek 27 + 75 = 102 kitap)"
-        ],
-        "hatali_adim_no": 4,
-        "kategori": "Kalan / Para Yorumu",
-        "ipucu": "Bölme işleminde kalan 75 TL paradır, kitap adedi değildir! 75 TL ile 95 TL'lik yeni bir kitap alınabilir mi?",
-        "beklenen_islem": "2640 / 95",
-        "beklenen_sonuc": 27
-    },
-    "9": {
-        "baslik": "7. Soru: Atık Kâğıt ve Ağaç Kurtarma",
-        "metin": "Topladığı her 1000 kg kâğıtla 17 adet yetişkin ağacı kesilmekten kurtaran bir ortaokul, 1 yılda 7000 kg atık kâğıt toplarsa kaç adet yetişkin ağacı kurtarır?",
-        "yapay_zeka_cozumu": [
-            "1. Adım: 7000 x 17 = 119000 ağaç kurtarılır"
-        ],
-        "hatali_adim_no": 1,
-        "kategori": "Orantı / Kat Hesabı",
-        "ipucu": "7000 kg içinde 7 tane 1000 kg vardır. Oranı bulduktan sonra 7 kat sayısı ile 17'yi çarpmalısın!",
-        "beklenen_islem": "7 * 17",
-        "beklenen_sonuc": 119
-    },
-    "10": {
-        "baslik": "8. Soru: Dağların Yüksekliği",
-        "metin": "Bir bölgedeki beş dağdan dördünün yükseklikleri 1411 m, 2185 m, 1319 m ve 1277 m'dir. Toplamları 7450 m'yi geçmemektedir. 5. dağın yüksekliği en fazla kaç metre olabilir?",
-        "yapay_zeka_cozumu": [
-            "1. Adım: 1411 + 2185 + 1319 + 1277 = 6150 m",
-            "2. Adım: 7450 - 6150 = 1300 m"
-        ],
-        "hatali_adim_no": 1,
-        "kategori": "Temel İşlem / Toplama",
-        "ipucu": "1. adımda dört dağın boyunu toplarken hata yapılmış. Toplam 6150 değil, 6192 olmalıdır.",
-        "beklenen_islem": "1411 + 2185 + 1319 + 1277",
-        "beklenen_sonuc": 6192
-    },
-    "11": {
-        "baslik": "9. Soru: Ahmet'in Birikimi",
-        "metin": "2024 yılının ilk altı ayında 23300 TL, yıl sonunda toplam 38800 TL biriktiren Ahmet, yıl boyunca her ay en az 2500 TL biriktirdiğine göre kasım ayında en fazla kaç TL biriktirmiştir?",
-        "yapay_zeka_cozumu": [
-            "1. Adım: 38800 - 23300 = 15500 TL",
-            "2. Adım: 15500 / 6 = 2583 TL biriktirmiştir"
-        ],
-        "hatali_adim_no": 2,
-        "kategori": "Mantıksal Sınır / Cebirsel Yorum",
-        "ipucu": "Diğer ayların en az 2500 TL olma şartını dikkate alarak hesapla.",
-        "beklenen_islem": "15500 - (5 * 2500)",
-        "beklenen_sonuc": 3000
+        "hatali_adim_no": 5,
+        "kategori": "Kademeli Toplama / Örüntü",
+        "ipucu": "Tüm haftaların toplamını bulurken toplama işlemindeki basamakları ve elde sayılarını yeniden kontrol et.",
+        "beklenen_islem": "35 + 50 + 65 + 80",
+        "beklenen_sonuc": 230
     }
 }
