@@ -4,42 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hata Avcısı - Matematik Problemleri</title>
-    <!-- CSS Dosyası -->
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Hata Avcısı</h1>
+            <h1>🎯 Hata Avcısı</h1>
             <p>Yapay zekanın çözümünü incele, hatalı adımı seç ve düzeltme işlemini yaz!</p>
+            <div class="ust-bilgi">
+                <span id="durum">Soru Yükleniyor...</span>
+                <span id="sure-sayaci">⏱️ 0s</span>
+            </div>
         </header>
 
-        <main>
-            <div id="soru-alani">
-                <p id="durum">Soru Yükleniyor...</p>
-            </div>
+        <main id="oyun-alani">
+            <section id="soru-alani" class="kart"></section>
 
-            <section class="cozum-bolumu">
-                <h3>🔍 Yapay Zekanın Çözüm Adımları:</h3>
+            <section class="kart cozum-bolumu">
+                <h3>🤖 Yapay Zekanın Çözüm Adımları:</h3>
                 <div id="adimlar-listesi"></div>
             </section>
 
-            <section class="etkilesim-bolumu">
-                <h3>Hata Tespiti ve Düzeltme</h3>
-                <p>1. Hangi adımda hata yapıldı?</p>
+            <section class="kart etkilesim-bolumu">
+                <h3>✍️ Hata Tespiti ve Düzeltme</h3>
+                
+                <p><strong>1️⃣ Hangi adımda hata yapıldı?</strong></p>
                 <div id="adim-secim-alani"></div>
 
-                <p>2. Doğru İşlemi ve Sonucu Yaz:</p>
-                <input type="text" id="dogru-islem-input" placeholder="Örn: 1053 / 9">
-                <input type="text" id="dogru-sonuc-input" placeholder="Örn: 117">
+                <p><strong>2️⃣ Doğru İşlemi ve Sonucu Yaz:</strong></p>
+                <div class="input-grubu">
+                    <input type="text" id="dogru-islem-input" placeholder="Örn: 1053 / 9">
+                    <span>=</span>
+                    <input type="text" id="dogru-sonuc-input" placeholder="Örn: 117">
+                </div>
                 
-                <button id="gonder-btn" onclick="dogrulaVeGonder()">Doğrula ve Gönder</button>
-                <button id="sonraki-btn" onclick="sonrakiSoruyaGec()" style="display:none;">Sonraki Soruya Geç →</button>
+                <div id="geri-bildirim" class="geri-bildirim" style="display:none;"></div>
+
+                <div class="buton-grubu">
+                    <button id="gonder-btn" onclick="dogrulaVeGonder()">Doğrula ve Gönder</button>
+                    <button id="sonraki-btn" onclick="sonrakiSoruyaGec()" style="display:none;">Sonraki Soruya Geç →</button>
+                </div>
             </section>
         </main>
+
+        <section id="rapor-alani" class="kart" style="display:none;">
+            <h2>📊 Kapsamlı Performans ve Pedagojik Analiz Raporu</h2>
+            <p>Tüm soruları tamamladın! İşte sürelerin, hata türlerin ve genel karnen:</p>
+            <div class="tablo-kapsayici">
+                <table id="rapor-tablosu">
+                    <thead>
+                        <tr>
+                            <th>Soru Başlığı</th>
+                            <th>Kategori</th>
+                            <th>Süre</th>
+                            <th>Deneme Detayı & Hata Türleri</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rapor-govdesi"></tbody>
+                </table>
+            </div>
+            <button onclick="location.reload()" class="yeniden-btn">Yeniden Başla 🔄</button>
+        </section>
     </div>
 
-    <!-- JavaScript Dosyası -->
     <script src="/static/script.js"></script>
 </body>
 </html>
