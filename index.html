@@ -3,79 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hata Avcısı - Matematik Problem Çözümü</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Hata Avcısı - Matematik Problemleri</title>
+    <!-- CSS Dosyası -->
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>Hata Avcısı</h1>
+            <p>Yapay zekanın çözümünü incele, hatalı adımı seç ve düzeltme işlemini yaz!</p>
+        </header>
 
-    <div class="header">
-        <h1>🎯 Hata Avcısı</h1>
-        <p>Yapay zekanın çözümünü incele, hatalı adımı seç ve düzeltme işlemini yaz!</p>
+        <main>
+            <div id="soru-alani">
+                <p id="durum">Soru Yükleniyor...</p>
+            </div>
+
+            <section class="cozum-bolumu">
+                <h3>🔍 Yapay Zekanın Çözüm Adımları:</h3>
+                <div id="adimlar-listesi"></div>
+            </section>
+
+            <section class="etkilesim-bolumu">
+                <h3>Hata Tespiti ve Düzeltme</h3>
+                <p>1. Hangi adımda hata yapıldı?</p>
+                <div id="adim-secim-alani"></div>
+
+                <p>2. Doğru İşlemi ve Sonucu Yaz:</p>
+                <input type="text" id="dogru-islem-input" placeholder="Örn: 1053 / 9">
+                <input type="text" id="dogru-sonuc-input" placeholder="Örn: 117">
+                
+                <button id="gonder-btn" onclick="dogrulaVeGonder()">Doğrula ve Gönder</button>
+                <button id="sonraki-btn" onclick="sonrakiSoruyaGec()" style="display:none;">Sonraki Soruya Geç →</button>
+            </section>
+        </main>
     </div>
 
-    <div class="container" id="quizContainer">
-        <!-- Sol Taraf: Soru ve Yapay Zekanın Çözüm Adımları -->
-        <div class="card">
-            <div class="problem-title">
-                <span id="soruBaslik">Soru Yükleniyor...</span>
-                <span class="timer-badge" id="timerBadge">⏱️ 0s</span>
-            </div>
-            <div class="problem-text" id="soruMetin"></div>
-
-            <div class="ai-steps">
-                <h4>🤖 Yapay Zekanın Çözüm Adımları:</h4>
-                <ul id="cozumAdimlari"></ul>
-            </div>
-        </div>
-
-        <!-- Sağ Taraf: Adım Seçimi ve İkiye Bölünmüş Girdi Kutusu -->
-        <div class="card">
-            <h3>✍️ Hata Tespiti ve Düzeltme</h3>
-            
-            <div class="step-selection">
-                <h4>1️⃣ Hangi adımda hata yapıldı?</h4>
-                <div class="radio-group" id="adimRadioContainer"></div>
-            </div>
-
-            <div class="input-group">
-                <label><strong>2️⃣ Doğru İşlemi ve Sonucu Yaz:</strong></label>
-                <!-- İkiye Bölünmüş Girdi Kutusu -->
-                <div class="split-input-wrapper">
-                    <input type="text" id="islemInput" placeholder="Örn: 1053 / 9">
-                    <span class="equals-sign">=</span>
-                    <input type="text" id="sonucInput" placeholder="Örn: 117">
-                </div>
-                <button class="btn-submit" onclick="dogrula()">Doğrula ve Gönder</button>
-            </div>
-
-            <div id="result-box"></div>
-            <button id="btnNext" class="btn-next" onclick="sonrakiSoruyaGec()">Sonraki Soruya Geç ➔</button>
-        </div>
-    </div>
-
-    <!-- Analiz Raporu Kartı -->
-    <div class="container" id="analysisCard">
-        <div class="card" style="width: 100%;">
-            <h2 style="color: #1a73e8; margin-bottom: 10px;">📊 Kapsamlı Performans ve Pedagojik Analiz Raporu</h2>
-            <p style="color: #666; margin-bottom: 15px;">Tüm soruları tamamladın! İşte sürelerin, hata türlerin ve genel karnen:</p>
-            
-            <div class="profile-summary" id="profileSummaryContent"></div>
-
-            <table class="report-table" id="reportTable">
-                <thead>
-                    <tr>
-                        <th>Soru Başlığı</th>
-                        <th>Kategori</th>
-                        <th>Süre</th>
-                        <th>Deneme Detayı & Hata Türleri</th>
-                    </tr>
-                </thead>
-                <tbody id="reportTbody"></tbody>
-            </table>
-            <button class="btn-submit" style="margin-top: 25px; width: 100%;" onclick="location.reload()">Yeniden Başla 🔄</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <!-- JavaScript Dosyası -->
+    <script src="/static/script.js"></script>
 </body>
 </html>
