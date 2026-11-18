@@ -12,7 +12,6 @@ async function sorulariGetir() {
         if (!response.ok) throw new Error("Sorular yüklenemedi!");
         
         const veri = await response.json();
-        // Senin JSON dosyan obje {"1": {...}, "2": {...}} olduğu için diziye çeviriyoruz:
         sorular = Object.values(veri);
         
         if (sorular.length > 0) {
@@ -60,7 +59,6 @@ function soruyuEkranaBas(index) {
         `;
     });
 
-    // Alanları sıfırla
     document.getElementById('dogru-islem-input').value = "";
     document.getElementById('dogru-sonuc-input').value = "";
     const bildirim = document.getElementById('geri-bildirim');
@@ -76,7 +74,6 @@ function soruyuEkranaBas(index) {
 function dogrulaVeGonder() {
     const soru = sorular[aktifSoruIndex];
     const secilenRadio = document.querySelector('input[name="hatali_adim"]:checked');
-    const girilenIslem = document.getElementById('dogru-islem-input').value.trim();
     const girilenSonuc = Number(document.getElementById('dogru-sonuc-input').value.trim());
     const bildirim = document.getElementById('geri-bildirim');
 
@@ -136,8 +133,16 @@ function sonrakiSoruyaGec() {
 function raporuGoster() {
     clearInterval(zamanlayici);
     document.getElementById('oyun-alani').style.display = "none";
-    document.querySelector('.ust-bilgi').style.display = "none";
+    document.querySelector('header').style.display = "none";
     
+    const ogrenciAdi = document.getElementById('ogrenci-adi').value.trim() || "İsimsiz Öğrenci";
+    const bugun = new Date().toLocaleDateString('tr-TR');
+    const toplamSure = raporVerileri.reduce((toplam, item) => toplam + item.sure, 0);
+    const toplamDeneme = raporVerileri.reduce((toplam, item) => toplam + item.deneme, 0);
+
+    document.getElementById('rapor-ogrenci-bilgi').innerHTML = `<strong>Öğrenci:</strong> ${ogrenciAdi} &nbsp;|&nbsp; <strong>Tarih:</strong> ${bugun}`;
+    document.getElementById('rapor-ozet-bilgi').innerHTML = `<strong>Toplam Süre:</strong> ${toplamSure} sn &nbsp;|&nbsp; <strong>Toplam Soru:</strong> ${sorular.length} &nbsp;|&nbsp; <strong>Toplam Deneme:</strong> ${toplamDeneme}`;
+
     const raporAlani = document.getElementById('rapor-alani');
     const raporGovdesi = document.getElementById('rapor-govdesi');
     raporAlani.style.display = "block";
@@ -153,6 +158,10 @@ function raporuGoster() {
             </tr>
         `;
     });
+}
+
+function pdfIndir() {
+    window.print();
 }
 
 window.onload = sorulariGetir;

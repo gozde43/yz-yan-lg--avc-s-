@@ -8,9 +8,15 @@
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="no-print">
             <h1>🎯 Hata Avcısı</h1>
             <p>Yapay zekanın çözümünü incele, hatalı adımı seç ve düzeltme işlemini yaz!</p>
+            
+            <div class="ogrenci-giris">
+                <label for="ogrenci-adi"><strong>👤 Öğrenci Adı Soyadı:</strong></label>
+                <input type="text" id="ogrenci-adi" placeholder="Adını ve soyadını yaz...">
+            </div>
+
             <div class="ust-bilgi">
                 <span id="durum">Soru Yükleniyor...</span>
                 <span id="sure-sayaci">⏱️ 0s</span>
@@ -48,14 +54,18 @@
         </main>
 
         <section id="rapor-alani" class="kart" style="display:none;">
-            <h2>📊 Kapsamlı Performans ve Pedagojik Analiz Raporu</h2>
-            <p>Tüm soruları tamamladın! İşte sürelerin, hata türlerin ve genel karnen:</p>
+            <div class="rapor-ust-bilgi">
+                <h2>📊 Hata Avcısı — Öğretmen Değerlendirme Raporu</h2>
+                <p id="rapor-ogrenci-bilgi"></p>
+                <p id="rapor-ozet-bilgi"></p>
+            </div>
+
             <div class="tablo-kapsayici">
                 <table id="rapor-tablosu">
                     <thead>
                         <tr>
                             <th>Soru Başlığı</th>
-                            <th>Kategori</th>
+                            <th>Hata Kategorisi</th>
                             <th>Süre</th>
                             <th>Deneme Detayı & Hata Türleri</th>
                         </tr>
@@ -63,7 +73,11 @@
                     <tbody id="rapor-govdesi"></tbody>
                 </table>
             </div>
-            <button onclick="location.reload()" class="yeniden-btn">Yeniden Başla 🔄</button>
+
+            <div class="buton-grubu no-print" style="margin-top: 20px;">
+                <button onclick="pdfIndir()" class="pdf-btn">📄 Öğretmen Raporunu PDF İndir / Yazdır</button>
+                <button onclick="location.reload()" class="yeniden-btn">Yeniden Başla 🔄</button>
+            </div>
         </section>
     </div>
 
