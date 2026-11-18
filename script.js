@@ -106,17 +106,20 @@ function dogrulaVeGonder() {
         });
     } else {
         bildirim.className = "geri-bildirim hatali";
-        let hataMesaji = "❌ <strong>Tekrar Dene!</strong> ";
+        let hataMesaji = "❌ <strong>Tekrar Dene!</strong><br>";
         
+        // Hataya göre özel yönlendirme ve ipucu ayrımı
         if (!adimDogruMu) {
-            hataMesaji += "Seçtiğin adımda hata yok. ";
+            hataMesaji += "🔍 <strong>Adım Seçimi Yanlış:</strong> Seçtiğin adımda hata yok. Yapay zekanın işlemlerini sırasıyla tekrar kontrol et.";
             hataKayitlari.push("Yanlış adım tespiti");
         } else if (!sonucDogruMu) {
-            hataMesaji += "Hatalı adımı doğru buldun ancak düzelttiğin işlem sonucu yanlış. ";
+            hataMesaji += `🎯 <strong>Adım Doğru, Sonuç Hatalı:</strong> Hatalı adımı (${soru.hatali_adim_no}. adım) doğru buldun ancak düzelttiğin işlem sonucu yanlış.<br><br>💡 <strong>İpucu:</strong> ${soru.ipucu}`;
             hataKayitlari.push("İşlem/sonuç hatası");
+        } else {
+            hataMesaji += `💡 <strong>İpucu:</strong> ${soru.ipucu}`;
+            hataKayitlari.push("Genel hata");
         }
         
-        hataMesaji += `<br>💡 <strong>İpucu:</strong> ${soru.ipucu}`;
         bildirim.innerHTML = hataMesaji;
     }
 }
@@ -161,9 +164,10 @@ function raporuGoster() {
 }
 
 function pdfIndir() {
-    // Yazdırma penceresini güvenli şekilde tetikler
     window.focus();
     setTimeout(() => {
         window.print();
     }, 100);
 }
+
+window.onload = sorulariGetir;
