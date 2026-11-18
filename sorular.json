@@ -50,8 +50,8 @@
             "3. Adım: 1270 / 10 = 127 koli oluşur."
         ],
         "hatali_adim_no": 2,
-        "kategori": "Bilgi Hatası (Eksik Veri Kullanımı)",
-        "ipucu": "2. adımda sadece salı gününün yumurtalarından kırılanlar çıkarılmış. Pazartesi toplanan 1450 yumurta toplama dahil edilmemiş!",
+        "kategori": "İşlem ve Mantık Hatası",
+        "ipucu": "💡 Hangi adımda işlem hatası yaptın? Kontrol et: 1) Salı gününü bulurken 1450 ile 320'yi doğru toplayıp 1770 buldun mu? 2) Kırılan 500 adedi çıkarmadan önce *pazartesi ve salı toplanan tüm yumurtaları* (1450 + 1770 = 3220) topladın mı? 3) Sağlam kalan sayıyı 10'a bölerken basamakları doğru sadeleştirdin mi?",
         "beklenen_islem": "1450 + 1770",
         "beklenen_sonuc": 3220
     },
@@ -60,12 +60,12 @@
         "metin": "Zeynep, okulun bahçesindeki 400 metrelik koşu parkurunda pazartesi ve salı günleri toplam 3200 metre koşmuştur. Çarşamba günü ise bu mesafenin iki katı kadar koşan Zeynep, çarşamba günü kaç tur atmıştır?",
         "yapay_zeka_cozumu": [
             "1. Adım: Çarşamba günü koşulan mesafe 3200 x 2 = 6400 metredir.",
-            "2. Adım: Tur sayısını bulmak için koşulan mesafe ile parkur uzunluğu çarpılır: 6400 x 400 = 2560000 tur atılmıştır.",
+            "2. Adım: Tur sayısını bulmak için koşulan mesafe ile parkur uzunluğu çarpılmaz, bölünür: 6400 / 400 = 16 tur atılmıştır.",
             "3. Adım: Sonuç olarak Zeynep parkuru tamamlamıştır."
         ],
         "hatali_adim_no": 2,
-        "kategori": "Mantık Hatası (Yanlış İşlem Seçimi)",
-        "ipucu": "6400 metrelik mesafenin içinde kaç tane 400 metrelik tur olduğunu bulmak için çarpma mı yapmalıyız yoksa bölme mi?",
+        "kategori": "İşlem ve İşlem Türü Hatası",
+        "ipucu": "💡 Hangi adımda işlem hatası yaptın? Kontrol et: 1) 3200 sayısının 2 katını alırken çarpma işlemini doğru yaptın mı (6400)? 2) Toplam metre cinsinden mesafeyi parkur uzunluğuna (400 m) bölerken **çarpma değil bölme** işlemi yaptığından ve sıfırları doğru sadeleştirdiğinden emin ol.",
         "beklenen_islem": "6400 / 400",
         "beklenen_sonuc": 16
     },
@@ -74,13 +74,13 @@
         "metin": "Bir kitap okuma kampanyasında Elif ilk hafta 35 sayfa, sonraki her hafta bir önceki haftadan 15 sayfa daha fazla kitap okumuştur. Elif 4 haftanın sonunda toplam kaç sayfa kitap okumuştur?",
         "yapay_zeka_cozumu": [
             "1. Adım: 1. hafta 35 sayfa, 2. hafta 35 + 15 = 50 sayfa okumuştur.",
-            "2. Adım: 3. hafta bir önceki haftadan 15 fazla yani 35 + 15 = 50 sayfa okumuştur.",
-            "3. Adım: 4. hafta 50 + 15 = 65 sayfa okumuştur.",
-            "4. Adım: Toplam 35 + 50 + 50 + 65 = 200 sayfa okumuştur."
+            "2. Adım: 3. hafta bir önceki haftanın üzerine 15 eklenerek 50 + 15 = 65 sayfa hesaplanır.",
+            "3. Adım: 4. hafta 65 + 15 = 80 sayfa okumuştur.",
+            "4. Adım: Toplam 35 + 50 + 65 + 80 = 230 sayfa okumuştur."
         ],
         "hatali_adim_no": 2,
-        "kategori": "Bilgi Hatası (Kuralı Yanlış Uygulama)",
-        "ipucu": "Soruda 'her hafta bir önceki haftadan 15 sayfa fazla' diyor. 3. haftada 1. haftanın üzerine değil, 2. haftanın (50) üzerine ekleme yapılmalı.",
+        "kategori": "Örüntü ve İşlem Hatası",
+        "ipucu": "💡 Hangi adımda işlem hatası yaptın? Kontrol et: 1) Her hafta bir *önceki haftanın* üzerine 15 ekleyerek sırasıyla 35, 50, 65, 80 buldun mu? 2) Tüm haftaları toplarken (35 + 50 + 65 + 80) toplama işlemindeki elde ve basamak hesaplarını yeniden gözden geçir.",
         "beklenen_islem": "50 + 15",
         "beklenen_sonuc": 65
     }
