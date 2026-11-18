@@ -161,7 +161,9 @@ function raporuGoster() {
 }
 
 function pdfIndir() {
-    window.print();
+    // Yazdırma penceresini güvenli şekilde tetikler
+    window.focus();
+    setTimeout(() => {
+        window.print();
+    }, 100);
 }
-
-window.onload = sorulariGetir;
