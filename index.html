@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hata Avcısı - Matematik Problemleri</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>🎯 Hata Avcısı</h1>
+                <p>Yapay zekanın çözümünü incele, hatalı adımı tespit et ve o adımı düzelt!</p>
+            </div>
+            <div class="ust-bilgi" id="ust-bilgi-cubugu" style="display:none;">
+                <span id="durum">Soru Yükleniyor...</span>
+                <span id="katilimci-etiket">👤 Katılımcı: -</span>
+                <span id="sure-sayaci">⏱️ 0s</span>
+            </div>
+        </header>
+
+        <!-- KURALLAR VE ÖRNEK EKRANI (SORULAR BAŞLAMADAN ÖNCE) -->
+        <section id="kurallar-alani" class="kart kurallar-karti">
+            <h2>📋 Başlamadan Önce: Görev Kuralları</h2>
+            <p class="kurallar-giris">Bu etkinlikte yapay zekanın çözdüğü matematik problemlerini bir dedektif gibi denetleyeceksin. Lütfen aşağıdaki <strong>3 temel kuralı</strong> dikkatle oku:</p>
+
+            <div class="kural-maddeleri">
+                <div class="kural-kutu">
+                    <span class="kural-no">1</span>
+                    <div>
+                        <strong>Tüm Adımları Kontrol Et ("Hata Yok" Seçeneğine Dikkat!):</strong>
+                        <p>Yapay zekanın her adımını kendi işlemlerinle karşılaştır. Eğer bir hata varsa <strong>hatanın ilk başladığı adımı</strong> seç. Tüm adımlar doğruysa <strong>"Hata Yok (Tüm adımlar doğru)"</strong> seçeneğini işaretle.</p>
+                    </div>
+                </div>
+
+                <div class="kural-kutu vurgulanan-kural">
+                    <span class="kural-no">2</span>
+                    <div>
+                        <strong>Problemin Son Cevabını Değil, Hatalı Adımı Düzelt!</strong>
+                        <p>Çok önemli: Sorunun en sonundaki nihai cevabı değil, <strong>yalnızca hatalı bulduğun adımdaki</strong> doğru işlemi ve o adımın sonucunu yazmalısın.</p>
+                        <div class="mini-ornek">
+                            <strong>Örnek:</strong><br>
+                            <em>Soru:</em> 10 TL'si olan Ali, 3 TL'ye kalem ve 4 TL'ye silgi alırsa kaç TL'si kalır?<br>
+                            <em>YZ 1. Adım:</em> 3 + 4 = 8 TL harcamıştır. <span class="etiket-hata">(Hatalı Adım)</span><br>
+                            <em>YZ 2. Adım:</em> 10 - 8 = 2 TL kalır.<br>
+                            ✅ <strong>Yazman Gereken Doğru Düzeltme:</strong> İşlem kutusuna <code>3 + 4</code>, Sonuç kutusuna <code>7</code> yazmalısın (Sorunun son cevabı olan <code>3</code>'ü değil!).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kural-kutu">
+                    <span class="kural-no">3</span>
+                    <div>
+                        <strong>Otomatik Kayıt ve Rapor Dosyaları (CSV & PDF):</strong>
+                        <p>İlerlemen otomatik olarak kaydedilir ve etkinlik sonunda tüm denemelerini içeren sonuç raporunu hem <code>.csv</code> hem de <code>.pdf</code> olarak indirebilirsin.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="baslangic-formu">
+                <label for="katilimci-kodu-input"><strong>Katılımcı Kodu / Rumuz (İsteğe Bağlı):</strong></label>
+                <div class="baslangic-satiri">
+                    <input type="text" id="katilimci-kodu-input" placeholder="Örn: OGR-5A-12 (Boş bırakılırsa otomatik atanır)">
+                    <button type="button" id="basla-btn" onclick="etkinligiBaslat()">Kuralları Okudum, 1. Sorudan Başla 🚀</button>
+                </div>
+                <div id="kayitli-oturum-kutusu" class="kayitli-oturum-kutusu" style="display:none;">
+                    <span id="kayitli-oturum-bilgi"></span>
+                    <button type="button" class="devam-et-btn" onclick="kayitliOturumaDevamEt()">⏯️ Kaldığım Yerden Devam Et</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANA OYUN ALANI -->
+        <main id="oyun-alani" style="display:none;">
+            <section id="soru-alani" class="kart soru-kapsayici">
+                <div id="soru-metni-alani" class="soru-metni"></div>
+                <div id="soru-gorsel-alani" class="soru-gorseli" aria-label="Soru destekleyici şema"></div>
+            </section>
+
+            <section class="kart cozum-bolumu">
+                <h3>🤖 Yapay Zekanın Çözüm Adımları:</h3>
+                <div id="adimlar-listesi"></div>
+            </section>
+
+            <section class="kart etkilesim-bolumu">
+                <h3>✍️ Hata Tespiti ve Düzeltme</h3>
+
+                <p><strong>1️⃣ Yapay zekanın çözümünde hata var mı? Varsa hangi adımda?</strong></p>
+                <div id="adim-secim-alani" class="adim-secim-grubu"></div>
+
+                <div id="duzeltme-giris-alani">
+                    <p><strong>2️⃣ Hatalı Adımdaki Doğru İşlemi ve O Adımın Sonucunu Yaz:</strong> <span class="kural-hatirlatma">(Sorunun en son cevabını değil, seçtiğin adımın doğrusunu yaz)</span></p>
+                    <div class="input-grubu">
+                        <input type="text" id="dogru-islem-input" placeholder="Örn: 3 + 4">
+                        <span class="esittir-isareti">=</span>
+                        <input type="text" id="dogru-sonuc-input" placeholder="Örn: 7">
+                    </div>
+                </div>
+
+                <div id="ipucu-kutusu" class="ipucu-kutusu" style="display:none;"></div>
+                <div id="geri-bildirim" class="geri-bildirim" style="display:none;"></div>
+
+                <div class="buton-grubu">
+                    <button type="button" id="gonder-btn" onclick="dogrulaVeGonder()">Doğrula ve Gönder</button>
+                    <button type="button" id="ipucu-btn" class="ipucu-btn" onclick="ipucuIste()" style="display:none;">💡 İpucu Al (1/2)</button>
+                    <button type="button" id="cevabi-goster-btn" class="cevabi-goster-btn" onclick="cevabiGoster()" style="display:none;">👁️ Cevabı Göster</button>
+                    <button type="button" id="sonraki-btn" onclick="sonrakiSoruyaGec()" style="display:none;">Sonraki Soruya Geç →</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- SONUÇ VE ANALİZ RAPORU -->
+        <section id="rapor-alani" class="kart" style="display:none;">
+            <h2>📊 Kapsamlı Performans ve Pedagojik Analiz Raporu</h2>
+            <p id="rapor-ozet-bilgi" class="rapor-ozet-kutu"></p>
+            <p>Tüm soruları tamamladın! Tüm adımlardaki denemelerini içeren sonuç raporunu <code>.csv</code> ve <code>.pdf</code> formatlarında bilgisayarında saklayabilirsin:</p>
+            <div class="tablo-kapsayici">
+                <table id="rapor-tablosu">
+                    <thead>
+                        <tr>
+                            <th>Soru Başlığı</th>
+                            <th>Hata Kategorisi & Newman Düzeyi</th>
+                            <th>Süre</th>
+                            <th>Tüm Deneme Adımları & İpucu Bilgisi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rapor-govdesi"></tbody>
+                </table>
+            </div>
+            <div class="rapor-butonlari">
+                <button type="button" onclick="csvIndir(false)" class="csv-tekrar-btn">📥 Raporu CSV İndir</button>
+                <button type="button" onclick="pdfIndir(false)" class="pdf-indir-btn">📄 Raporu PDF İndir</button>
+                <button type="button" onclick="guvenliYenidenBasla()" class="yeniden-btn">Kaydet ve Yeniden Başla 🔄</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

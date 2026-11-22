@@ -1,0 +1,192 @@
+{
+    "1": {
+        "baslik": "1. Soru: Kırtasiye Alışverişi",
+        "metin": "Kerem, tanesi 45 TL olan defterlerden 12 tane ve tanesi 15 TL olan kalemlerden 20 tane almıştır. Kırtasiyeciye 1000 TL veren Kerem'in alacağı para üstü kaç TL'dir?",
+        "gorsel_tipi": "kirtasiye",
+        "yapay_zeka_cozumu": [
+            "1. Adım: 45 x 12 = 540 TL defterlere ödenmiştir.",
+            "2. Adım: 15 x 20 = 300 TL kalemlere ödenmiştir.",
+            "3. Adım: 540 + 300 = 840 TL toplam tutardır.",
+            "4. Adım: 1000 - 840 = 260 TL para üstü kalmalıdır."
+        ],
+        "hatali_adim_no": 4,
+        "kategori": "İşlem Hatası (Çıkarma)",
+        "newman_basamagi": "İşlem Becerileri",
+        "ipuclari": [
+            "Her adımdaki işlem sonucunu kağıt üzerinde yeniden hesaplayarak kontrol et.",
+            "Toplam tutar doğru bulunmuş; sonrasındaki hesaplamayı onluk bozmaya dikkat ederek tekrar yap."
+        ],
+        "beklenen_islem": "1000 - 840",
+        "beklenen_sonuc": 160,
+        "alternatif_cozumler": [
+            {
+                "islem": "1000 - 840",
+                "sonuc": 160
+            }
+        ]
+    },
+    "2": {
+        "baslik": "2. Soru: Sinema Salonu Bilet Satışı",
+        "metin": "Bir sinema salonunda her birinde 24 koltuk bulunan 18 sıra vardır. Akşam seansı için 350 bilet satıldığına göre, salonda kaç koltuk boş kalmıştır?",
+        "gorsel_tipi": "sinema",
+        "yapay_zeka_cozumu": [
+            "1. Adım: Salondaki toplam koltuk sayısını bulmak için 24 x 18 = 412 koltuk hesaplanır.",
+            "2. Adım: Boş koltuk sayısını bulmak için toplam koltuktan satılan bilet çıkarılır: 412 - 350 = 62 koltuk boş kalır."
+        ],
+        "hatali_adim_no": 1,
+        "kategori": "İşlem Hatası (Çarpma)",
+        "newman_basamagi": "İşlem Becerileri",
+        "ipuclari": [
+            "Çözüm sırası mantıklı görünüyor; ancak yapılan hesaplamaların doğruluğunu tek tek test et.",
+            "İki basamaklı sayılarla yapılan işlemin sonucunu basamak değerlerine dikkat ederek yeniden bul."
+        ],
+        "beklenen_islem": "24 * 18",
+        "beklenen_sonuc": 432,
+        "final_cevap_uyarisi": 82,
+        "alternatif_cozumler": [
+            {
+                "islem": "24 * 18",
+                "sonuc": 432
+            },
+            {
+                "islem": "18 * 24",
+                "sonuc": 432
+            }
+        ]
+    },
+    "3": {
+        "baslik": "3. Soru: Okul Gezisi Otobüs Planı",
+        "metin": "Bir okul gezisine 5. sınıflardan 142 öğrenci ve 14 öğretmen katılacaktır. Yolculuk için her biri en fazla 30 yolcu alabilen otobüsler kiralanmıştır. Herkesin oturacağı bir yer olması için en az kaç otobüs gereklidir?",
+        "gorsel_tipi": "otobus",
+        "yapay_zeka_cozumu": [
+            "1. Adım: Geziye katılacak toplam kişi sayısı 142 + 14 = 156 kişidir.",
+            "2. Adım: 156 ÷ 30 işleminde bölüm 5, kalan 6 olduğu için tam 5 otobüs yeterlidir.",
+            "3. Adım: Kiralama planı 5 otobüs üzerinden yapılır."
+        ],
+        "bolme_gorseli": {
+            "adim_no": 2,
+            "bolunen": 156,
+            "bolen": 30,
+            "bolum": 5,
+            "carpim": 150,
+            "kalan": 6
+        },
+        "hatali_adim_no": 2,
+        "kategori": "Mantık Hatası (Kalan Yorumu)",
+        "newman_basamagi": "Kodlama",
+        "ipuclari": [
+            "Bölme işleminin sayıları doğru; ancak sonucun problemdeki gerçek yaşam koşuluna uygunluğunu düşün.",
+            "Problemde 'herkesin oturacağı bir yer olması' şartı var; artan kişilerin durumunu hesaba kat."
+        ],
+        "beklenen_islem": "5 + 1",
+        "beklenen_sonuc": 6,
+        "alternatif_cozumler": [
+            {
+                "islem": "5 + 1",
+                "sonuc": 6
+            },
+            {
+                "islem": "1 + 5",
+                "sonuc": 6
+            }
+        ]
+    },
+    "4": {
+        "baslik": "4. Soru: Çiftlikte Yumurta Toplama",
+        "metin": "Bir çiftlikte pazartesi günü 1450, salı günü ise pazartesinden 320 fazla yumurta toplanmıştır. Toplanan yumurtaların 500 tanesi kırıldığı için ayrılmıştır. Sağlam kalan yumurtalar onar yumurtalık kolilere konulursa toplam kaç koli oluşur?",
+        "gorsel_tipi": "ciftlik",
+        "yapay_zeka_cozumu": [
+            "1. Adım: Salı günü toplanan yumurta sayısı 1450 + 320 = 1770 tanedir.",
+            "2. Adım: İki günde toplanan toplam yumurta sayısı 1770 - 500 = 1270 olarak hesaplanır.",
+            "3. Adım: 1270 / 10 = 127 koli oluşur."
+        ],
+        "hatali_adim_no": 2,
+        "kategori": "Bilgi Hatası (Eksik Veri Kullanımı)",
+        "newman_basamagi": "Anlama",
+        "ipuclari": [
+            "Problem metninde verilen tüm sayıların çözüm adımlarında eksiksiz kullanılıp kullanılmadığını kontrol et.",
+            "İki gün boyunca toplanan toplam ürün miktarı hesaplanırken günlerden birinin verisi gözden kaçmış olabilir."
+        ],
+        "beklenen_islem": "1450 + 1770",
+        "beklenen_sonuc": 3220,
+        "final_cevap_uyarisi": 322,
+        "alternatif_cozumler": [
+            {
+                "islem": "1450 + 1770",
+                "sonuc": 3220
+            },
+            {
+                "islem": "1770 + 1450",
+                "sonuc": 3220
+            },
+            {
+                "islem": "1450 + 1770 - 500",
+                "sonuc": 2720
+            },
+            {
+                "islem": "(1450 + 1770) - 500",
+                "sonuc": 2720
+            },
+            {
+                "islem": "3220 - 500",
+                "sonuc": 2720
+            }
+        ]
+    },
+    "5": {
+        "baslik": "5. Soru: Parkur Koşusu",
+        "metin": "Zeynep, okulun bahçesindeki 400 metrelik koşu parkurunda pazartesi ve salı günleri toplam 3200 metre koşmuştur. Çarşamba günü ise bu mesafenin iki katı kadar koşan Zeynep, çarşamba günü kaç tur atmıştır?",
+        "gorsel_tipi": "parkur",
+        "yapay_zeka_cozumu": [
+            "1. Adım: Çarşamba günü koşulan mesafe 3200 x 2 = 6400 metredir.",
+            "2. Adım: Tur sayısını bulmak için koşulan mesafe ile parkur uzunluğu çarpılır: 6400 x 400 = 2560000 tur atılmıştır.",
+            "3. Adım: Sonuç olarak Zeynep parkuru tamamlamıştır."
+        ],
+        "hatali_adim_no": 2,
+        "kategori": "Mantık Hatası (Yanlış İşlem Seçimi)",
+        "newman_basamagi": "Dönüştürme",
+        "ipuclari": [
+            "Bulunan sayının gerçekçi olup olmadığını ve sorulan niceliğe uygun bir işlem seçilip seçilmediğini sorgula.",
+            "Toplam mesafenin içinde kaç tane parkur turu olduğunu bulmak için hangi temel işlem kullanılmalıdır?"
+        ],
+        "beklenen_islem": "6400 / 400",
+        "beklenen_sonuc": 16,
+        "alternatif_cozumler": [
+            {
+                "islem": "6400 / 400",
+                "sonuc": 16
+            }
+        ]
+    },
+    "6": {
+        "baslik": "6. Soru: Kitap Okuma Kampanyası",
+        "metin": "Bir kitap okuma kampanyasında Elif ilk hafta 35 sayfa, sonraki her hafta bir önceki haftadan 15 sayfa daha fazla kitap okumuştur. Elif 4 haftanın sonunda toplam kaç sayfa kitap okumuştur?",
+        "gorsel_tipi": "kitap",
+        "yapay_zeka_cozumu": [
+            "1. Adım: 1. hafta 35 sayfa, 2. hafta 35 + 15 = 50 sayfa okumuştur.",
+            "2. Adım: 3. hafta bir önceki haftadan 15 fazla yani 35 + 15 = 50 sayfa okumuştur.",
+            "3. Adım: 4. hafta 50 + 15 = 65 sayfa okumuştur.",
+            "4. Adım: Toplam 35 + 50 + 50 + 65 = 200 sayfa okumuştur."
+        ],
+        "hatali_adim_no": 2,
+        "kategori": "Bilgi Hatası (Kuralı Yanlış Uygulama)",
+        "newman_basamagi": "Anlama",
+        "ipuclari": [
+            "Metindeki artış kuralının her adımda doğru sayıya uygulanıp uygulanmadığını kontrol et.",
+            "Her hafta 'bir önceki haftadan' fazla okunduğuna göre, 3. haftadaki artış hangi haftanın üzerine eklenmelidir?"
+        ],
+        "beklenen_islem": "50 + 15",
+        "beklenen_sonuc": 65,
+        "final_cevap_uyarisi": 230,
+        "alternatif_cozumler": [
+            {
+                "islem": "50 + 15",
+                "sonuc": 65
+            },
+            {
+                "islem": "15 + 50",
+                "sonuc": 65
+            }
+        ]
+    }
+}
